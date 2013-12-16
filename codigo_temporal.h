@@ -24,7 +24,50 @@
   fin de comprobacion de los datos cogidos  
   
   
+        
+      //textprintf(screen, font, 110,70, palette_color[12], "Raton en %d   %d", mouse_x, mouse_y);
+      //textprintf(screen, font, 110,80, palette_color[12], "Boton %d", mouse_b);
+      //textprintf(screen, font, 110,90, palette_color[12], "Aleatorio  %d", aleatorio);
+      //textprintf(screen, font, 110,100, palette_color[12], "P. Rojo  %d %d", x_aleatorio, y_aleatorio);
+      
+      
+      
   
+     switch (puntos_ppal)
+      {
+      case 0:
+      velocidad_scroll = 1; 
+      retraso_pintar = 1; 
+      break ;
+      case 1000:
+      velocidad_scroll = 5;
+      retraso_pintar = 1; 
+      break ;
+      case 5000:
+      velocidad_scroll = 20;
+      retraso_pintar = 1; 
+      break ;
+      default: 
+      velocidad_scroll = 1; 
+      retraso_pintar = 1; 
+      }         
+      
+  
+                 
+  
+  if ( (puntos_ppal > 0)     && (puntos_ppal  < 50000 ) )   { velocidad_scroll = 1;  }
+  if ( (puntos_ppal > 50000) && (puntos_ppal  < 75000 ) )   { velocidad_scroll = 2;  }
+  if ( (puntos_ppal > 20000) && (puntos_ppal  < 30000 ) )   { velocidad_scroll = 3;  }
+  if ( (puntos_ppal > 30000) && (puntos_ppal  < 40000 ) )   { velocidad_scroll = 4;  }
+  if ( (puntos_ppal > 40000) && (puntos_ppal  < 50000 ) )   { velocidad_scroll = 5;  }
+  if ( (puntos_ppal > 50000) && (puntos_ppal  < 60000 ) )   { velocidad_scroll = 6;  }
+  if ( (puntos_ppal > 60000) && (puntos_ppal  < 70000 ) )   { velocidad_scroll = 7;  }
+  if ( (puntos_ppal > 70000) && (puntos_ppal  < 100000 ) )  { velocidad_scroll = 8; }
+  if ( (puntos_ppal > 100000) && (puntos_ppal < 150000 ) )  { velocidad_scroll = 9; }
+  if ( (puntos_ppal > 150000) && (puntos_ppal < 300000 ) )  { velocidad_scroll = 10; }
+  if ( (puntos_ppal > 300000) && (puntos_ppal < 900000 ) )  { velocidad_scroll = 15; }
+  if ( (puntos_ppal > 1000000) ) { velocidad_scroll = 25; }
+  if ( (puntos_ppal > 300000) )  { retraso_pintar = 0; }
   
   
   

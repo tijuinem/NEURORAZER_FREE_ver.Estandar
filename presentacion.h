@@ -7,7 +7,8 @@ void PRESENTACION (void)
      do
      {    
      textprintf(screen, font, 20,250, palette_color[12], "NEURORAZER, Edicion Estandar.");
-     textprintf(screen, font, 20,265, palette_color[10], "COCHE 1 - CURSOR - y el RATON para Eliminar el Punto Rojo");
+     textprintf(screen, font, 20,265, palette_color[10], "Control del COCHE con el CURSOR - y el RATON para Eliminar el Punto Rojo");
+     textprintf(screen, font, 20,280, palette_color[10], "Usa las teclas 1,2,3,4,5,6,7,8,9 para cambiar el nivel de juego.");
 
      
      textprintf(screen, font, 175,350, palette_color[10], "PULSA ENTER-INTRO cuando estes listo");
