@@ -1,7 +1,7 @@
 NEURORAZER FREE ver.Estándar
 =============================
 
-###Versión gratuita del juego NeuroRacer. 1 coche en pantalla. version Estándar
+###Versión gratuita del juego NeuroRacer. 1 coche. version Estándar
 
 NeuroRAZER es un videojuego de coches gratuito creado para mejorar el rendimiento cognitivo. NeuroRAZER versión "Estándar" es la versión libre del juego Neuroracer; en este caso poniéndolo algo más difícil al introducir el uso del ratón. El NeuroRacer oficial (The Gazzaley Lab) es el resultado de la investigación realizada por un grupo de científicos de la Universidad de California, publicada en la revista científica británica Nature. Los investigadores desarrollaron un videojuego con el que se puede medir y reparar el deterioro neuronal relacionado con el envejecimiento. Se trata de controlar un vehículo en el que el jugador podría tener una única tarea o varias al mismo tiempo. En el original, se trata de un solo coche en pantalla, en el que cada cierto tiempo aparece un punto verde en pantalla y el jugador tiene que pulsar cierta tecla pñara que desaparezca.
 
