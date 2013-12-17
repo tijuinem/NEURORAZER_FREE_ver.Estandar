@@ -14,10 +14,11 @@ Ambos proyectos se liberan de forma Open Source en Github en Dic. 2013, para que
 
 (las versiones ALFA se consideran no válidas para jugar )
 
-* versión alfa 1.0 11-122013  .versión modo local. 
+* versión alfa 1.0 11-12-2013 .versión modo local. 
 * Versión alfa 1.1 12-12-2013 .carga pantallas ok.
 * versión alfa 1.2 13-12-2013 .aleatorio de pantallas. aleatorio de aparición punto rojo.
 * versión alfa 1.3 16-12-2013 .aleatorio de coches en pantalla. modificado el sistema de velocidades del juego.
+* versión alfa 1.4 17-12-2013 .aparicion o no de bicis, coches, y segunda tarea.
 
 
 ###Mejoras Pendientes.
