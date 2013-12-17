@@ -6,13 +6,15 @@ void PRESENTACION (void)
      
      do
      {    
-     textprintf(screen, font, 20,250, palette_color[12], "NEURORAZER, Edicion Estandar.");
-     textprintf(screen, font, 20,265, palette_color[10], "Control del COCHE con el CURSOR - y el RATON para Eliminar el Punto Rojo");
-     textprintf(screen, font, 20,280, palette_color[10], "Usa las teclas 1,2,3,4,5,6,7,8,9 para cambiar el nivel de juego.");
+     textprintf(screen, font, 20,250, palette_color[12], "NEURORAZER, Edicion Estandar. CONTROLES:");
+     textprintf(screen, font, 20,265, palette_color[10], "* Control del COCHE con el -CURSOR- ");
+     textprintf(screen, font, 20,280, palette_color[10], "* TECLA -R- para activar la segunda tarea (punto Rojo)");
+     textprintf(screen, font, 20,295, palette_color[10], "* TECLA -C- para activar Coches en el cirucuito");
+     textprintf(screen, font, 20,310, palette_color[10], "* TECLA -B- para activar Bicicletas en el cirucuito");
 
      
-     textprintf(screen, font, 175,350, palette_color[10], "PULSA ENTER-INTRO cuando estes listo");
-     textprintf(screen, font, 175,370, palette_color[10], "PULSA ESC para abandonar el juego");
+     textprintf(screen, font, 175,370, palette_color[10], "PULSA ENTER-INTRO cuando estes listo");
+     textprintf(screen, font, 175,380, palette_color[10], "  PULSA ESC para abandonar el juego");
               
      textprintf(screen, font, 20,450, palette_color[9], "Distribuido Open Source bajo licencias GPL-GNU. Y bajo las condiciones CC");
      textout(screen, font,  programadores , 20, 460, palette_color[9]); 

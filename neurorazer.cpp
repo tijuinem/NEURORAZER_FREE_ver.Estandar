@@ -5,8 +5,9 @@
 //      versión alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
 //      versión alfa 1.2  12-12-2013                                    //desde esta versión se libera el código en github. se permite editar, borrar, coger, fork... aunque se agradecerán ampliaciones y mejoras.
 //      versión alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
+//      versión alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
 
-       char version_ultima[80] = "version alfa 1.3  16-12-2013";        //actualizar aqui la versión a la hora de compilar
+       char version_ultima[80] = "version alfa 1.4  17-12-2013";        //actualizar aqui la versión a la hora de compilar
        char  programadores[80] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
@@ -24,13 +25,20 @@
  int fondo_pantalla = 0;
  int fin_juego = 0;
  BITMAP *fondo1, *fondo2, *fondo3, *fondo4, *fondo5, *fondo6, *fondo7, *fondo8, *fondo9;
- BITMAP *portada_y_salida, *coches_extra;
+ BITMAP *portada_y_salida, *coches_extra, *bicis_extra;
  PALLETE paleta;
  long int puntos_ppal = 0;
  long int vida_ppal = 10000;
  int velocidad_scroll = 1;                                                      //aconsejable si no funciona el fps.
  int balas = 100;
  int pantallas_recorridas =0;
+ bool mostramos_coches=false, mostramos_bicis =false;
+ bool activar_punto_rojo = false, activar_punto_amarillo=false;
+ char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS  NO(tecla B)";
+ char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(tecla R)";
+ char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(tecla C)";
+
+ 
  
 //------------------------------------------------------------------------------cargo ficheros externos
 #include "carga_pantallas.h" 
@@ -82,7 +90,7 @@ void main(void)
 
 //------------------------------------------------------------------------------coches en la carretera
  coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);           //cada coche tiene 50*100. hay 6 .
-
+ bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);            //cada bici tiene 50*100. hay 6 .
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
  int size_coche_x = 50; 
@@ -135,7 +143,9 @@ void main(void)
 //------------------------------------------------------------------------------programacion ppal del juego   
  PRESENTACION ();
  carga_pantalla (fondo_pantalla);
- coches_a_mostrar (6);
+ if (mostramos_bicis  == true ) {bicis_a_mostrar  (6); }
+ if (mostramos_coches == true ) {coches_a_mostrar (6); }
+
 
 do
 { 
@@ -143,10 +153,22 @@ do
  {
       blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y ,0, 0, size_mapa_x, size_mapa_y);       //la primera pantalla empieza en el tamaño del mapa menos 480.
       //textprintf(screen, font, 10,40, palette_color[12], "pantalla  %d", fondo_pantalla);
-      textprintf(screen, font, 110,30, palette_color[12], "VIDA      %d", vida_ppal);
-      textprintf(screen, font, 110,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
-      textprintf(screen, font, 110,50, palette_color[12], "NIVEL     %d", velocidad_scroll);
-      textprintf(screen, font, 110,60, palette_color[12], "BALAS     %d", balas);                 
+      textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
+      textprintf(screen, font, 10,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
+      textprintf(screen, font, 10,50, palette_color[12], "NIVEL     %d", velocidad_scroll);
+      textprintf(screen, font, 10,60, palette_color[12], "BALAS     %d", balas); 
+      if (mostramos_bicis == true) 
+         { textout(screen, font, esto_es_si_bicis, 10, 70, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_bicis, 10, 70, palette_color[9]);}
+      if (mostramos_coches == true) 
+         { textout(screen, font, esto_es_si_coches, 10, 80, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_coches, 10, 80, palette_color[9]);}
+      if (activar_punto_rojo == true) 
+         { textout(screen, font, esto_es_si_p_rojo, 10, 90, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_rojo, 10, 90, palette_color[9]);}              
+              
+              
+                       
       draw_sprite(screen, cochePPAL, coordX, coordY);                 //formato doble buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
      
 //------------------------------------------------------------------------------movimiento--------------------------        
@@ -172,15 +194,15 @@ do
           pantallas_recorridas ++;
           size_pantalla_mostar = 0;  
           carga_pantalla (fondo_pantalla);
-          coches_a_mostrar (6);
+          if (mostramos_bicis  == true ) {bicis_a_mostrar  (6); }
+          if (mostramos_coches == true ) {coches_a_mostrar (6); }
           x_aleatorio = rand() % 550; //para mostrar el punto rojo en diferentes sitios en cada circuito
-          y_aleatorio = rand() % 375;   
-                       
+          y_aleatorio = rand() % 375;                          
           }          
   
 //--------------------------------------------------------------------------aleatorio mostrar avisos
   aleatorio =  rand() % dificultad_aleatorio;
-  if ( aleatorio == 69 )  {  punto_rojo_en_pantalla = 1;  }
+  if (( aleatorio == 69 ) && (activar_punto_rojo==true)) {  punto_rojo_en_pantalla = 1;  }
   if ( punto_rojo_en_pantalla == 1 ) 
   { 
   draw_sprite(screen, punto_rojo, x_aleatorio, y_aleatorio); 
@@ -244,6 +266,13 @@ do
   if (  key[KEY_8] ) {velocidad_scroll = 8;}
   if (  key[KEY_9] ) {velocidad_scroll = 9;}
   if (  key[KEY_0] ) {velocidad_scroll = 20;}
+  //------------------------------------------mostrar vechiculos  y activar tareas
+  if (  key[KEY_B] ) {mostramos_bicis = true;}
+  if (  key[KEY_C] ) {mostramos_coches =true;}
+  if (  key[KEY_R] ) {activar_punto_rojo =true;}
+  
+  
+  //------------------------------------------trampas y puntos
   if (  key[KEY_P] ) { puntos_ppal= puntos_ppal + 1000; }                      //haciendo trampas  
   if ( (puntos_ppal > 1000000) ) { velocidad_scroll = 10; }
   if ( (puntos_ppal > 2000000) ) { velocidad_scroll = 25; }
@@ -275,6 +304,8 @@ SALIDA ();
  destroy_bitmap(punto_mira_disparado);
  destroy_bitmap(portada_y_salida);
  destroy_bitmap(coches_extra);
+ destroy_bitmap(bicis_extra);
+ 
 //------------------------------------------------------------------------------destruyo todas las memorias audio
  destroy_sample(choque);
  destroy_sample(motor1);
