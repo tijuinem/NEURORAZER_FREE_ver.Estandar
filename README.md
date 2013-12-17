@@ -1,7 +1,7 @@
-NEURORAZER_FREE_ver.Estandard
+NEURORAZER FREE ver.Estándar
 =============================
 
-Versión gratuita del juego NeuroRacer. 1 coche en pantalla. version Estándar
+###Versión gratuita del juego NeuroRacer. 1 coche en pantalla. version Estándar###
 
 NeuroRAZER es un videojuego de coches gratuito creado para mejorar el rendimiento cognitivo. NeuroRAZER versión "Estándar" es la versión libre del juego Neuroracer; en este caso poniéndolo algo más difícil al introducir el uso del ratón. El NeuroRacer oficial (The Gazzaley Lab) es el resultado de la investigación realizada por un grupo de científicos de la Universidad de California, publicada en la revista científica británica Nature. Los investigadores desarrollaron un videojuego con el que se puede medir y reparar el deterioro neuronal relacionado con el envejecimiento. Se trata de controlar un vehículo en el que el jugador podría tener una única tarea o varias al mismo tiempo. En el original, se trata de un solo coche en pantalla, en el que cada cierto tiempo aparece un punto verde en pantalla y el jugador tiene que pulsar cierta tecla pñara que desaparezca.
 
@@ -9,35 +9,23 @@ Cuando leí la noticia me pareció interesante y busqué una forma de descargar-
 
 Ambos proyectos se liberan de forma Open Source en Github en Dic. 2013, para que sean editados, mejorados, ampliados, o divididos; o simplemente descargados y jugados. Usando las licencias originales de no comercialidad, GPL. Y autoría CC. by : tijuinem -at- gmail -dot- com
 
-Indice de versiones.
-===================
+###Indice de versiones.
 
 (las versiones ALFA se consideran no válidas para jugar )
 
-
-versión alfa 1.0 11-122013  //versión modo local. 
-
-Versión alfa 1.1 12-12-2013 //carga pantallas ok.
-
-versión alfa 1.2 13-12-2013 //aleatorio de pantallas. aleatorio de aparición punto rojo.
-
-versión alfa 1.3 16-12-2013 //aleatorio de coches en pantalla. modificado el sistema de velocidades del juego.
+* versión alfa 1.0 11-122013  //versión modo local. 
+* Versión alfa 1.1 12-12-2013 //carga pantallas ok.
+* versión alfa 1.2 13-12-2013 //aleatorio de pantallas. aleatorio de aparición punto rojo.
+* versión alfa 1.3 16-12-2013 //aleatorio de coches en pantalla. modificado el sistema de velocidades del juego.
 
 
-MEJORAS PENDIENTES.
-==================
+###MEJORAS PENDIENTES.
 
-1- Código para FPS. Velocidad estándar para diferentes ordenadores. EStá el código pero no probado. En estos momentos está bajo un Delay editable. 
-
-2- Redefinir teclado. Ahora solo funciona con las teclas predefinidas. Cursor + ratón.
-
-3- Transiciones de las pistas. Fallo a corregir en los útimos 480 pixels del bucle for.
-
-4- Mejoras gráficas. Adjunto archivo para editar los circuitos para GIMP.
-
-5- Mejoras en el sonido. Música de fondo. Musica para el motor. 
-
-6- Conversión de Allegro v4 a v5. 
-
-7- Cambiar a utf8 y añadir eñes y tildes en los textos.
+* Código para FPS. Velocidad estándar para diferentes ordenadores. EStá el código pero no probado. En estos momentos está bajo un Delay editable. 
+* Redefinir teclado. Ahora solo funciona con las teclas predefinidas. Cursor + ratón.
+* Transiciones de las pistas. Fallo a corregir en los útimos 480 pixels del bucle for.
+* Mejoras gráficas. Adjunto archivo para editar los circuitos para GIMP.
+* Mejoras en el sonido. Música de fondo. Musica para el motor. 
+* Conversión de Allegro v4 a v5. 
+* Cambiar a utf8 y añadir eñes y tildes en los textos.
 
