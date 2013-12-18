@@ -31,6 +31,28 @@
       //textprintf(screen, font, 110,100, palette_color[12], "P. Rojo  %d %d", x_aleatorio, y_aleatorio);
       
       
+        //set_keyboard_rate(0, 0);
+      
+        //if (  key[KEY_F1] ) { velocidad_scroll=velocidad_scroll+1;}
+  //if (  key[KEY_F2] ) {clear_keybuf(); velocidad_scroll  --;clear_keybuf(); }
+
+ 
+   //------------------------------------------mostrar vechiculos  y activar tareas
+  if (  key[KEY_3] ) {velocidad_scroll = 3;}
+  if (  key[KEY_4] ) {velocidad_scroll = 4;}
+  if (  key[KEY_5] ) {velocidad_scroll = 5;}
+  if (  key[KEY_6] ) {velocidad_scroll = 6;}
+  if (  key[KEY_7] ) {velocidad_scroll = 7;}
+  if (  key[KEY_8] ) {velocidad_scroll = 8;}
+  if (  key[KEY_9] ) {velocidad_scroll = 9;}
+  if (  key[KEY_0] ) {velocidad_scroll = 20;}
+
+  if (  key[KEY_B] ) {mostramos_bicis = true;}
+  if (  key[KEY_C] ) {mostramos_coches =true;}
+  if (  key[KEY_R] ) {activar_punto_rojo =true;}
+  
+  
+      
       
   
      switch (puntos_ppal)

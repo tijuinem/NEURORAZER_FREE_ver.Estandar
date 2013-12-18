@@ -1,14 +1,15 @@
 //      by Tijuinem :   tijuinem -at- gmail -dot- com                   //desarrollado con el proposito de aprender allegro :)
-//      NeuroRAZER versiï¿½n "ESTANDAR". versiï¿½n libre del juego Neuroracer, poniï¿½ndolo algo mï¿½s difï¿½cil; uso del ratï¿½n. Neuroracer es un videojuego creado para mejorar el rendimiento cognitivo.
+//      NeuroRAZER versión "ESTANDAR". versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. Neuroracer es un videojuego creado para mejorar el rendimiento cognitivo.
 //      Indice de versiones:
-//      versiï¿½n alfa 1.0  09-12-2013                                    //version modo local
-//      versiï¿½n alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
-//      versiï¿½n alfa 1.2  12-12-2013                                    //desde esta versiï¿½n se libera el cï¿½digo en github. se permite editar, borrar, coger, fork... aunque se agradecerï¿½n ampliaciones y mejoras.
-//      versiï¿½n alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
-//      versiï¿½n alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
+//      versión alfa 1.0  09-12-2013                                    //version modo local
+//      versión alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
+//      versión alfa 1.2  12-12-2013                                    //desde esta versión se libera el código en github. se permite editar, borrar, coger, fork... aunque se agradecerán ampliaciones y mejoras.
+//      versión alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
+//      versión alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
+//      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
 
-       char version_ultima[80] = "version alfa 1.4  17-12-2013";        //actualizar aqui la versiï¿½n a la hora de compilar
-       char  programadores[80] = "tijuinem at gmail dot com";           //aï¿½ade tu nombre o mail, para aparecer actualizado en los crï¿½ditos :)
+       char version_ultima[80] = "versión Beta 1.0  18-12-2013";        //actualizar aqui la versión a la hora de compilar
+       char  programadores[80] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
     /\  _  \ /\_ \  /\_ \
@@ -18,7 +19,7 @@
        \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
         \/_/\/_/\/____/\/____/\/____/\/___ \ \/_/ \/___/
                                        /\____/
-                                       \_/__/     Versiï¿½n 4 */                                     
+                                       \_/__/     Versión 4 */                                     
 //------------------------------------------------------------------------------globales
 #include <allegro.h>
 
@@ -34,9 +35,9 @@
  int pantallas_recorridas =0;
  bool mostramos_coches=false, mostramos_bicis =false;
  bool activar_punto_rojo = false, activar_punto_amarillo=false;
- char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS  NO(tecla B)";
- char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(tecla R)";
- char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(tecla C)";
+ char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS  NO(F3)";
+ char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(F9)";
+ char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(F4)";
 
  
  
@@ -53,7 +54,7 @@
 
 void main(void)
 { 
-//------------------------------------------------------------------------------variables generales generales y configuraciones bï¿½sicas 
+//------------------------------------------------------------------------------variables generales generales y configuraciones básicas 
   allegro_init();                                                 //Initialize Allegro.  
  set_color_depth(numero_de_bits);                                //selecciono X bits
  set_gfx_mode(GFX_SAFE, modo_pantallaX , modo_pantallaY, 0, 0);  //Set the resolution  with SAFE autodetection.
@@ -77,7 +78,7 @@ void main(void)
                                          
 //------------------------------------------------------------------------------cargo  graficos
  clear_keybuf(); // Borra el buffer del teclado 
- acquire_screen(); // Bloquea screen antes de dibujar en ï¿½l, screen es el BITMAP por donde nos moveremos 
+ acquire_screen(); // Bloquea screen antes de dibujar en él, screen es el BITMAP por donde nos moveremos 
  fondo1 = load_bitmap ("graficos/recta 640 8000 verde.pcx", paleta); 
  fondo2 = load_bitmap ("graficos/recta 640 8000 gris.pcx", paleta); 
  fondo3 = load_bitmap ("graficos/recta 640 8000 estrechamiento.pcx", paleta); 
@@ -90,7 +91,7 @@ void main(void)
 
 //------------------------------------------------------------------------------coches en la carretera
  coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);           //cada coche tiene 50*100. hay 6 .
- bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);            //cada bici tiene 50*100. hay 6 .
+ bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);           //cada bici tiene 50*100. hay 6 .
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
  int size_coche_x = 50; 
@@ -151,11 +152,12 @@ do
 { 
  for ( recorre_y = 0; recorre_y <= size_mapa_y; recorre_y = recorre_y + velocidad_scroll )
  {
-      blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y ,0, 0, size_mapa_x, size_mapa_y);       //la primera pantalla empieza en el tamaï¿½o del mapa menos 480.
+      
+      blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y ,0, 0, size_mapa_x, size_mapa_y);       //la primera pantalla empieza en el tamaño del mapa menos 480.
       //textprintf(screen, font, 10,40, palette_color[12], "pantalla  %d", fondo_pantalla);
       textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
       textprintf(screen, font, 10,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
-      textprintf(screen, font, 10,50, palette_color[12], "NIVEL     %d", velocidad_scroll);
+      textprintf(screen, font, 10,50, palette_color[12], "VEL F1/F2 %d", velocidad_scroll);
       textprintf(screen, font, 10,60, palette_color[12], "BALAS     %d", balas); 
       if (mostramos_bicis == true) 
          { textout(screen, font, esto_es_si_bicis, 10, 70, palette_color[12]);   } 
@@ -165,14 +167,12 @@ do
          else {textout(screen, font, esto_es_no_coches, 10, 80, palette_color[9]);}
       if (activar_punto_rojo == true) 
          { textout(screen, font, esto_es_si_p_rojo, 10, 90, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_rojo, 10, 90, palette_color[9]);}              
-              
-              
-                       
+         else {textout(screen, font, esto_es_no_p_rojo, 10, 90, palette_color[9]);}          
+            
       draw_sprite(screen, cochePPAL, coordX, coordY);                 //formato doble buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
-     
+          
 //------------------------------------------------------------------------------movimiento--------------------------        
-        if (key[KEY_ESC] || (fin_juego == 1))  //escape de juego
+       if (key[KEY_ESC] || (fin_juego == 1))  //escape de juego
            {
            fin_juego = 1;
            clear_keybuf();                 
@@ -184,7 +184,8 @@ do
         if (key[KEY_UP]) 
          if (coordY >= 0 + size_coche_y/4 )  { coordY = coordY - incremento_corrdenadas; }              
         if (key[KEY_DOWN]) 
-         if (coordY <= limite_pantalla_Y - size_coche_y/4 )  { coordY = coordY + incremento_corrdenadas; }
+         if (coordY <= limite_pantalla_Y - size_coche_y/4 )  { coordY = coordY + incremento_corrdenadas; }  
+
 //------------------------------------------------------------------------------cambio pantalla. y dibujos aleatorios 
  if ( (recorre_y == (size_mapa_y - 2)) &&  (fin_juego == 0)) 
           {
@@ -255,28 +256,44 @@ do
      }     
      
 //-----------------------------------------------------------------------------puntos, vida , salida , incrementos.
-  if (  key[KEY_1] ) {velocidad_scroll = 1;}
-  if (  key[KEY_2] ) {velocidad_scroll = 2;}
-  if (  key[KEY_3] ) {velocidad_scroll = 3;}
-  if (  key[KEY_4] ) {velocidad_scroll = 4;}
-  if (  key[KEY_5] ) {velocidad_scroll = 5;}
-  if (  key[KEY_6] ) {velocidad_scroll = 6;}
-  if (  key[KEY_7] ) {velocidad_scroll = 7;}
-  if (  key[KEY_8] ) {velocidad_scroll = 8;}
-  if (  key[KEY_9] ) {velocidad_scroll = 9;}
-  if (  key[KEY_0] ) {velocidad_scroll = 20;}
-  //------------------------------------------mostrar vechiculos  y activar tareas
-  if (  key[KEY_B] ) {mostramos_bicis = true;}
-  if (  key[KEY_C] ) {mostramos_coches =true;}
-  if (  key[KEY_R] ) {activar_punto_rojo =true;}
-  
-  
+  if (keypressed()) 
+  {
+    switch (readkey() >> 8) 
+    {
+        case KEY_F1:
+            velocidad_scroll ++;
+            break;
+        case KEY_F2:
+            if ( velocidad_scroll < 1) { velocidad_scroll = 1; puntos_ppal --;}
+            velocidad_scroll --;
+            break;
+        case KEY_F3:
+            bicis_a_mostrar  (10);
+            mostramos_bicis =   true;
+            break;
+        case KEY_F4:
+            coches_a_mostrar  (10);
+            mostramos_coches =  true;
+            break;
+        case KEY_F9:
+            activar_punto_rojo= true;
+            break;
+        case KEY_F12:
+            retraso_pintar=0;
+            break;
+        case KEY_P:
+            puntos_ppal= puntos_ppal + 1000;                                    //haciendo trampas 
+            break;
+    }
+  }    
   //------------------------------------------trampas y puntos
-  if (  key[KEY_P] ) { puntos_ppal= puntos_ppal + 1000; }                      //haciendo trampas  
   if ( (puntos_ppal > 1000000) ) { velocidad_scroll = 10; }
   if ( (puntos_ppal > 2000000) ) { velocidad_scroll = 25; }
   if ( (puntos_ppal > 500000) )  { retraso_pintar = 0; }                
-  if (  vida_ppal == 0 ) { fin_juego = 1; }
+  if (  vida_ppal == 0 ) { 
+        fin_juego = 1; textout(screen, font, 
+        "Vida principal terminada. FIN de JUEGO", 200,200, palette_color[15]); 
+        rest (1000); }
 
 rest (retraso_pintar);     
  } //--------------------------------------------------------------------------fin del ciclo for de recorrer fondos y juego
@@ -284,7 +301,7 @@ rest (retraso_pintar);
 
 SALIDA ();
 
-//------------------------------------------------------------------------------salir de allegro, con alegrï¿½a.
+//------------------------------------------------------------------------------salir de allegro, con alegría.
  poll_keyboard(); // no deberia ser necesario , pero parece que lo es.
  clear_keybuf();
  allegro_exit();

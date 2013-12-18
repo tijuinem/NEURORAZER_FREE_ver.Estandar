@@ -8,13 +8,16 @@ void PRESENTACION (void)
      {    
      textprintf(screen, font, 20,250, palette_color[12], "NEURORAZER, Edicion Estandar. CONTROLES:");
      textprintf(screen, font, 20,265, palette_color[10], "* Control del COCHE con el -CURSOR- ");
-     textprintf(screen, font, 20,280, palette_color[10], "* TECLA -R- para activar la segunda tarea (punto Rojo)");
-     textprintf(screen, font, 20,295, palette_color[10], "* TECLA -C- para activar Coches en el cirucuito");
-     textprintf(screen, font, 20,310, palette_color[10], "* TECLA -B- para activar Bicicletas en el cirucuito");
+     textprintf(screen, font, 20,280, palette_color[10], "* TECLAS -F1/F2- Para Aumentar/Disminuir la Velocidad.");
+     textprintf(screen, font, 20,295, palette_color[10], "* TECLA -F3- para activar y aumentar la presencia de Bicicletas.");
+     textprintf(screen, font, 20,310, palette_color[10], "* TECLA -F4- para activar y aumentar la presencia de Coches.");
+     textprintf(screen, font, 20,325, palette_color[10], "* TECLA -F5- para activar y aumentar la presencia de Camiones.");    
+     textprintf(screen, font, 20,340, palette_color[10], "* TECLA -F9- para activar la segunda tarea   (Punto Rojo)");
+     textprintf(screen, font, 20,355, palette_color[10], "* TECLA -F10-para activar la tercera tarea (Punto Amarillo)");
 
      
-     textprintf(screen, font, 175,370, palette_color[10], "PULSA ENTER-INTRO cuando estes listo");
-     textprintf(screen, font, 175,380, palette_color[10], "  PULSA ESC para abandonar el juego");
+     textprintf(screen, font, 175,380, palette_color[10], " PULSA ENTER cuando estes listo");
+     textprintf(screen, font, 175,390, palette_color[10], "PULSA ESC para abandonar el juego");
               
      textprintf(screen, font, 20,450, palette_color[9], "Distribuido Open Source bajo licencias GPL-GNU. Y bajo las condiciones CC");
      textout(screen, font,  programadores , 20, 460, palette_color[9]); 
