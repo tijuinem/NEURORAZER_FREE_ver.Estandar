@@ -13,12 +13,12 @@ Ambos proyectos se liberan de forma Open Source en Github en Dic. 2013, para que
 ###Indice de versiones.
 
 (las versiones ALFA se consideran no válidas para jugar )
-
 * versión alfa 1.0 11-12-2013 .versión modo local. 
 * Versión alfa 1.1 12-12-2013 .carga pantallas ok.
 * versión alfa 1.2 13-12-2013 .aleatorio de pantallas. aleatorio de aparición punto rojo.
 * versión alfa 1.3 16-12-2013 .aleatorio de coches en pantalla. modificado el sistema de velocidades del juego.
 * versión alfa 1.4 17-12-2013 .aparicion o no de bicis, coches, y segunda tarea.
+* versión Beta 1.0 18-12-2013 .primera versión jugable pública. fallo en la aparición del tráfico en los aleatorios.
 
 
 ###Mejoras Pendientes.
@@ -27,6 +27,7 @@ Ambos proyectos se liberan de forma Open Source en Github en Dic. 2013, para que
 * Redefinir teclado. Ahora solo funciona con las teclas predefinidas. Cursor + ratón.
 * Transiciones de las pistas. Fallo a corregir en los útimos 480 pixels del bucle for.
 * Mejoras gráficas. Adjunto archivo para editar los circuitos para GIMP.
+* en Beta 1.0 . Fallo en la aparición del tráfico en los aleatorios. Fallo en win 7.
 * Mejoras en el sonido. Música de fondo. Musica para el motor. 
 * Conversión de Allegro v4 a v5. 
 * Cambiar a utf8 y añadir eñes y tildes en los textos.
