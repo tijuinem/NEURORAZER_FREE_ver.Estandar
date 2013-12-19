@@ -1,5 +1,5 @@
 //      by Tijuinem :   tijuinem -at- gmail -dot- com                   //desarrollado con el proposito de aprender allegro :)
-//      NeuroRAZER versión "ESTANDAR". versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. Neuroracer es un videojuego creado para mejorar el rendimiento cognitivo.
+//      NeuroRAZER versión "ESTANDAR". Clon-versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. Neuroracer es un videojuego creado para mejorar el rendimiento cognitivo.
 //      Indice de versiones:
 //      versión alfa 1.0  09-12-2013                                    //version modo local
 //      versión alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
@@ -29,22 +29,24 @@
  BITMAP *portada_y_salida, *coches_extra, *bicis_extra;
  PALLETE paleta;
  long int puntos_ppal = 0;
- long int vida_ppal = 10000;
+ long int vida_ppal = 4664;
  int velocidad_scroll = 1;                                                      //aconsejable si no funciona el fps.
  int balas = 100;
  int pantallas_recorridas =0;
+ int size_coche_y = 100, size_coche_x = 50; 
+ int size_mapa_x = 640, size_mapa_y = 8000;
  bool mostramos_coches=false, mostramos_bicis =false;
  bool activar_punto_rojo = false, activar_punto_amarillo=false;
+ int numero_coches_a_incrementar =1, numero_bicis_a_incrementar =1; 
  char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS  NO(F3)";
+ char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(F4)"; 
  char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(F9)";
- char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(F4)";
-
- 
+ char esto_es_si_p_amarillo [20]= "AMARILLO  SI", esto_es_no_p_amarillo [30]= "AMARILLO  (F10)";
  
 //------------------------------------------------------------------------------cargo ficheros externos
 #include "carga_pantallas.h" 
-#include "salida.h" 
 #include "presentacion.h"
+#include "salida.h" 
 #include "coches_a_mostrar.h"
 
 //------------------------------------------------------------------------------modo grafico del juego
@@ -55,9 +57,9 @@
 void main(void)
 { 
 //------------------------------------------------------------------------------variables generales generales y configuraciones básicas 
-  allegro_init();                                                 //Initialize Allegro.  
- set_color_depth(numero_de_bits);                                //selecciono X bits
- set_gfx_mode(GFX_SAFE, modo_pantallaX , modo_pantallaY, 0, 0);  //Set the resolution  with SAFE autodetection.
+ allegro_init();                                                                //Initialize Allegro.  
+ set_color_depth(numero_de_bits);                                               //selecciono X bits
+ set_gfx_mode(GFX_SAFE, modo_pantallaX , modo_pantallaY, 0, 0);                 //Set the resolution  with SAFE autodetection.
  install_keyboard();  
  install_timer(); 
  srand(time(NULL));
@@ -70,11 +72,10 @@ void main(void)
  punto_mira_disparado = load_bitmap ("graficos/punto_mira_disparo.pcx", paleta);
  scare_mouse();
  clear_bitmap(screen);
- scare_mouse();  /*oculto raton*/
- //unscare_mouse(); /*no oculto raton*/
- //show_mouse(screen); //dibujo el raton basico . quito el raton normal
+ scare_mouse();                                                                 /*oculto raton*/
+ //unscare_mouse();                                                             /*no oculto raton*/
+ //show_mouse(screen);                                                          //dibujo el raton basico . quito el raton normal
  //show_mouse(punto_mira);
-
                                          
 //------------------------------------------------------------------------------cargo  graficos
  clear_keybuf(); // Borra el buffer del teclado 
@@ -90,12 +91,12 @@ void main(void)
  fondo9 = load_bitmap ("graficos/recta 640 8000 mar.pcx", paleta); 
 
 //------------------------------------------------------------------------------coches en la carretera
- coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);           //cada coche tiene 50*100. hay 6 .
- bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);           //cada bici tiene 50*100. hay 6 .
+ coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);            //cada coche tiene 50*100. hay 6 .
+ //coches_extra = load_bitmap ("graficos/6coches50pixels-anchoFUCSIA.pcx", paleta);    //prueba con fondo fucsia. si con draw. no con blit.
+ bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);            //cada bici tiene 50*100. hay 6 .
+ 
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
- int size_coche_x = 50; 
- int size_coche_y = 100; 
  int coordX = 300 , coordY= 200 ; //posicion de salida
  int incremento_corrdenadas = 1;  
  int fondoX = 0 , fondoY= 0 ;     //colores de fondo por defecto NEGRO
@@ -112,9 +113,7 @@ void main(void)
 //------------------------------------------------------------------------------preparando scroll
  int recorre_y =0;
  int retraso_pintar = 1;  //1 si no FPS
- int size_mapa_x = 640;
  int size_pantalla_mostar = 480;
- int size_mapa_y = 8000;
  int pantallas_en_disco = 10;
 
 //------------------------------------------------------------------------------sonido
@@ -137,9 +136,10 @@ void main(void)
   int aleatorio;
   int dificultad_aleatorio = 5000;
   int x_aleatorio, y_aleatorio;
-  int punto_rojo_en_pantalla = 0; 
-  BITMAP *punto_rojo; //con doble buffer peor.                                  
+  bool punto_rojo_en_pantalla = false, punto_amarillo_en_pantalla = false; 
+  BITMAP *punto_rojo, *punto_amarillo; //con doble buffer peor.                                  
   punto_rojo = load_bitmap ("graficos/punto_rojo.pcx", paleta);
+  punto_amarillo = load_bitmap ("graficos/punto_amarillo.pcx", paleta);
   
 //------------------------------------------------------------------------------programacion ppal del juego   
  PRESENTACION ();
@@ -147,14 +147,13 @@ void main(void)
  if (mostramos_bicis  == true ) {bicis_a_mostrar  (6); }
  if (mostramos_coches == true ) {coches_a_mostrar (6); }
 
-
 do
 { 
- for ( recorre_y = 0; recorre_y <= size_mapa_y; recorre_y = recorre_y + velocidad_scroll )
+ for ( recorre_y = 0; recorre_y <= size_mapa_y + modo_pantallaY; recorre_y = recorre_y + velocidad_scroll )
  {
-      
       blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y ,0, 0, size_mapa_x, size_mapa_y);       //la primera pantalla empieza en el tamaño del mapa menos 480.
-      //textprintf(screen, font, 10,40, palette_color[12], "pantalla  %d", fondo_pantalla);
+      //textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
+      //textprintf(screen, font, 10,20, palette_color[12], "pantalla  %d", fondo_pantalla);
       textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
       textprintf(screen, font, 10,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
       textprintf(screen, font, 10,50, palette_color[12], "VEL F1/F2 %d", velocidad_scroll);
@@ -167,11 +166,36 @@ do
          else {textout(screen, font, esto_es_no_coches, 10, 80, palette_color[9]);}
       if (activar_punto_rojo == true) 
          { textout(screen, font, esto_es_si_p_rojo, 10, 90, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_rojo, 10, 90, palette_color[9]);}          
+         else {textout(screen, font, esto_es_no_p_rojo, 10, 90, palette_color[9]);}
+      if (activar_punto_amarillo == true) 
+         { textout(screen, font, esto_es_si_p_amarillo, 10, 100, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_amarillo, 10, 100, palette_color[9]);}             
             
-      draw_sprite(screen, cochePPAL, coordX, coordY);                 //formato doble buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
+      draw_sprite(screen, cochePPAL, coordX, coordY);                           //formato doble buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
           
-//------------------------------------------------------------------------------movimiento--------------------------        
+//------------------------------------------------------------------------------cambio pantalla. y dibujos aleatorios 
+ if ( (recorre_y == (size_mapa_y + modo_pantallaY -1 )) &&  (fin_juego == 0)) 
+          {
+          fondo_pantalla =  rand() % pantallas_en_disco ;                       //cojo una pantalla aleatoria
+          recorre_y = 0;
+          pantallas_recorridas ++;
+          size_pantalla_mostar = 0;  
+          carga_pantalla (fondo_pantalla);
+          if (mostramos_bicis  == true )                                        //lamo a los vehiculos a mostrar tantas veces como vaya marcando. cada vez, 6 coches.
+              {
+              for (int nbi=1; nbi <= numero_bicis_a_incrementar; nbi ++)
+                  { bicis_a_mostrar  (6);}
+              }
+          if (mostramos_coches == true ) 
+              {
+              for (int nci=1; nci <= numero_coches_a_incrementar; nci ++)
+                  { coches_a_mostrar  (6);}              
+              }
+          x_aleatorio = rand() % 550;                                           //para mostrar el punto rojo en diferentes sitios en cada circuito
+          y_aleatorio = rand() % 375;                          
+          } 
+  
+//------------------------------------------------------------------------------movimiento del coche. limites------------        
        if (key[KEY_ESC] || (fin_juego == 1))  //escape de juego
            {
            fin_juego = 1;
@@ -186,30 +210,24 @@ do
         if (key[KEY_DOWN]) 
          if (coordY <= limite_pantalla_Y - size_coche_y/4 )  { coordY = coordY + incremento_corrdenadas; }  
 
-//------------------------------------------------------------------------------cambio pantalla. y dibujos aleatorios 
- if ( (recorre_y == (size_mapa_y - 2)) &&  (fin_juego == 0)) 
-          {
-          fondo_pantalla =  rand() % pantallas_en_disco ;   //cojo una pantalla aleatoria
-          recorre_y = 0;
-          pantallas_recorridas ++;
-          size_pantalla_mostar = 0;  
-          carga_pantalla (fondo_pantalla);
-          if (mostramos_bicis  == true ) {bicis_a_mostrar  (6); }
-          if (mostramos_coches == true ) {coches_a_mostrar (6); }
-          x_aleatorio = rand() % 550; //para mostrar el punto rojo en diferentes sitios en cada circuito
-          y_aleatorio = rand() % 375;                          
-          }          
-  
-//--------------------------------------------------------------------------aleatorio mostrar avisos
+//--------------------------------------------------------------------------aleatorio mostrar avisos--------------
   aleatorio =  rand() % dificultad_aleatorio;
-  if (( aleatorio == 69 ) && (activar_punto_rojo==true)) {  punto_rojo_en_pantalla = 1;  }
-  if ( punto_rojo_en_pantalla == 1 ) 
+  if (( aleatorio == 69 ) && (activar_punto_rojo==true)) {  punto_rojo_en_pantalla = true;  }
+  if ( punto_rojo_en_pantalla == true ) 
   { 
   draw_sprite(screen, punto_rojo, x_aleatorio, y_aleatorio); 
   play_sample(choque, 255, 0, 2000, FALSE); 
   vida_ppal -- ;
   }
-
+  
+  if (( aleatorio == 666 ) && (activar_punto_amarillo == true)) {  punto_amarillo_en_pantalla = true;  }
+  if ( punto_amarillo_en_pantalla == true ) 
+  { 
+  draw_sprite(screen, punto_amarillo, x_aleatorio, y_aleatorio); 
+  play_sample(choque, 255, 0, 3000, FALSE); 
+  vida_ppal -- ;
+  }  
+  
 //------------------------------------------------------------------------tema raton. le doy x pixels para que detecte posicion.
     switch (mouse_b)
       {
@@ -233,6 +251,11 @@ do
        punto_rojo_en_pantalla = 0;
        balas = balas + 15;
        }
+   
+   if ((key[KEY_SPACE]) && (punto_amarillo_en_pantalla == true))
+   {punto_amarillo_en_pantalla = false;}
+
+
 //------------------------------------------------------------------------------colores que rodean al coche. para choques
   color_en_x_coche_arriba_izda =  _getpixel16 (screen, coordX , coordY);          //probado tambien con _getpixel16 y _getpixel . 
   color_en_x_coche_arriba_decha = _getpixel16 (screen, coordX + size_coche_x, coordY);
@@ -253,7 +276,7 @@ do
       //textout(screen, font, "estas fuera del circuito", 160,80, palette_color[15]);
       play_sample(choque, 255, 0, 1000, FALSE); //int play_sample(const SAMPLE *spl, int vol, int pan, int freq, int loop);
       vida_ppal --;
-     }     
+     }    
      
 //-----------------------------------------------------------------------------puntos, vida , salida , incrementos.
   if (keypressed()) 
@@ -268,15 +291,21 @@ do
             velocidad_scroll --;
             break;
         case KEY_F3:
-            bicis_a_mostrar  (10);
+            numero_bicis_a_incrementar ++;
             mostramos_bicis =   true;
             break;
         case KEY_F4:
-            coches_a_mostrar  (10);
+            numero_coches_a_incrementar ++;
             mostramos_coches =  true;
             break;
         case KEY_F9:
             activar_punto_rojo= true;
+            break;
+        case KEY_F10:
+            activar_punto_amarillo= true;
+            break;
+        case KEY_F11:
+            retraso_pintar ++ ;
             break;
         case KEY_F12:
             retraso_pintar=0;
@@ -293,13 +322,14 @@ do
   if (  vida_ppal == 0 ) { 
         fin_juego = 1; textout(screen, font, 
         "Vida principal terminada. FIN de JUEGO", 200,200, palette_color[15]); 
-        rest (1000); }
+        rest (2000); 
+        SALIDA(); }
 
 rest (retraso_pintar);     
  } //--------------------------------------------------------------------------fin del ciclo for de recorrer fondos y juego
 } while (fin_juego==0);//------------------------------------------------------fin juego
 
-SALIDA ();
+ SALIDA ();
 
 //------------------------------------------------------------------------------salir de allegro, con alegría.
  poll_keyboard(); // no deberia ser necesario , pero parece que lo es.
