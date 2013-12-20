@@ -26,8 +26,8 @@
  int fondo_pantalla = 0;
  int fin_juego = 0;
  BITMAP *fondo1, *fondo2, *fondo3, *fondo4, *fondo5, *fondo6, *fondo7, *fondo8, *fondo9;
- BITMAP *portada_y_salida, *coches_extra, *bicis_extra;
- BITMAP *coches_extra_doble_buffer, *bicis_extra_doble_buffer;
+ BITMAP *portada_y_salida, *coches_extra, *bicis_extra, *camiones_extra;
+ BITMAP *coches_extra_doble_buffer, *bicis_extra_doble_buffer, *camiones_extra_doble_buffer;
  PALLETE paleta;
  long int puntos_ppal = 0;
  long int vida_ppal = 4664;
@@ -36,9 +36,9 @@
  int pantallas_recorridas =0;
  int size_coche_y = 100, size_coche_x = 50; 
  int size_mapa_x = 640, size_mapa_y = 8000;
- bool mostramos_coches=false, mostramos_bicis =false;
+ bool mostramos_coches=false, mostramos_bicis =false, mostramos_camiones = false;
  bool activar_punto_rojo = false, activar_punto_amarillo=false;
- int numero_coches_a_incrementar =1, numero_bicis_a_incrementar =1; 
+ int numero_coches_a_incrementar =1, numero_bicis_a_incrementar =1 ,numero_camiones_a_incrementar =1; 
  char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS  NO(F3)";
  char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(F4)"; 
  char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(F9)";
@@ -94,16 +94,16 @@ void main(void)
 //------------------------------------------------------------------------------coches en la carretera
  coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);    //prueba con fondo fucsia. si con draw. no con blit.
  bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);            //cada bici tiene 50*100. hay 6 .
- 
+ camiones_extra  = load_bitmap ("graficos/7camiones100pixels-ancho.pcx",  paleta);
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
- int coordX = 300 , coordY= 200 ; //posicion de salida
+ int coordX = 300 , coordY= 200 ;                                               //posicion de salida
  int incremento_corrdenadas = 1;  
- int fondoX = 0 , fondoY= 0 ;     //colores de fondo por defecto NEGRO
+ int fondoX = 0 , fondoY= 0 ;                                                   //colores de fondo por defecto NEGRO
  int limite_pantalla_X = modo_pantallaX - size_coche_x, limite_pantalla_Y  = modo_pantallaY - size_coche_y; //limites de pantalla para el objeto.
- BITMAP *cochePPAL ;                                //doble buffer para el coche ppal. ???
+ BITMAP *cochePPAL, *doble_buffer_cochePPAL ;                                   //doble buffer para el coche ppal. ???
  cochePPAL = load_bitmap ("graficos/coche316bitsFUCSIA.pcx", paleta); 
-
+ doble_buffer_cochePPAL = create_bitmap(50,100);                                //si funciona , meter mas coches
 //------------------------------------------------------------------------------para coger los colores que rodean al coche   
  int color_en_x_coche_arriba_decha;   
  int color_en_x_coche_arriba_izda;
@@ -112,7 +112,7 @@ void main(void)
 
 //------------------------------------------------------------------------------preparando scroll
  int recorre_y =0;
- int retraso_pintar = 1;  //1 si no FPS
+ int retraso_pintar = 1;                                                        //1 si no FPS
  int size_pantalla_mostar = 480;
  int pantallas_en_disco = 10;
 
@@ -144,9 +144,10 @@ void main(void)
 //------------------------------------------------------------------------------programacion ppal del juego   
  PRESENTACION ();
  carga_pantalla (fondo_pantalla);
- if (mostramos_bicis  == true ) {bicis_a_mostrar  (6); }
- if (mostramos_coches == true ) {coches_a_mostrar (6); }
-
+ if (mostramos_bicis    == true ) {bicis_a_mostrar    (6); }
+ if (mostramos_coches   == true ) {coches_a_mostrar   (6); }
+ if (mostramos_camiones == true)  {camiones_a_mostrar (7); }
+ 
 do
 { 
  if (recorre_y <= size_mapa_y + modo_pantallaY)
@@ -173,7 +174,10 @@ do
          { textout(screen, font, esto_es_si_p_amarillo, 10, 100, palette_color[12]);   } 
          else {textout(screen, font, esto_es_no_p_amarillo, 10, 100, palette_color[9]);}             
             
-      draw_sprite(screen, cochePPAL, coordX, coordY);                           //formato doble buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
+      
+      blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, 50, 100 );           //con doble buffer. ventaja que cojo cachos.
+      draw_sprite(screen, doble_buffer_cochePPAL, coordX, coordY); 
+      //draw_sprite(screen, cochePPAL, coordX, coordY);                          //formato simple buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
           
 //------------------------------------------------------------------------------cambio pantalla. y dibujos aleatorios 
  if ( (recorre_y >= size_mapa_y  ) &&  (fin_juego == 0)) 
@@ -192,6 +196,11 @@ do
               {
               for (int nci=1; nci <= numero_coches_a_incrementar; nci ++)
                   { coches_a_mostrar  (6);}              
+              }
+          if (mostramos_camiones == true ) 
+              {
+              for (int ncci=1; ncci <= numero_camiones_a_incrementar; ncci ++)
+                  { camiones_a_mostrar  (7);}              
               }
           x_aleatorio = rand() % 550;                                           //para mostrar el punto rojo en diferentes sitios en cada circuito
           y_aleatorio = rand() % 375;                          
@@ -299,6 +308,10 @@ do
         case KEY_F4:
             numero_coches_a_incrementar ++;
             mostramos_coches =  true;
+            break;
+        case KEY_F5:
+            numero_camiones_a_incrementar ++;
+            mostramos_camiones =  true;
             break;
         case KEY_F9:
             activar_punto_rojo= true;
