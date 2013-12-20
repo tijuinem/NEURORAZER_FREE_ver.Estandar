@@ -27,6 +27,7 @@
  int fin_juego = 0;
  BITMAP *fondo1, *fondo2, *fondo3, *fondo4, *fondo5, *fondo6, *fondo7, *fondo8, *fondo9;
  BITMAP *portada_y_salida, *coches_extra, *bicis_extra;
+ BITMAP *coches_extra_doble_buffer, *bicis_extra_doble_buffer;
  PALLETE paleta;
  long int puntos_ppal = 0;
  long int vida_ppal = 4664;
@@ -91,8 +92,7 @@ void main(void)
  fondo9 = load_bitmap ("graficos/recta 640 8000 mar.pcx", paleta); 
 
 //------------------------------------------------------------------------------coches en la carretera
- coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);            //cada coche tiene 50*100. hay 6 .
- //coches_extra = load_bitmap ("graficos/6coches50pixels-anchoFUCSIA.pcx", paleta);    //prueba con fondo fucsia. si con draw. no con blit.
+ coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);    //prueba con fondo fucsia. si con draw. no con blit.
  bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);            //cada bici tiene 50*100. hay 6 .
  
 
@@ -149,9 +149,11 @@ void main(void)
 
 do
 { 
- for ( recorre_y = 0; recorre_y <= size_mapa_y + modo_pantallaY; recorre_y = recorre_y + velocidad_scroll )
- {
-      blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y ,0, 0, size_mapa_x, size_mapa_y);       //la primera pantalla empieza en el tamaño del mapa menos 480.
+ if (recorre_y <= size_mapa_y + modo_pantallaY)
+  {
+      recorre_y = recorre_y + velocidad_scroll;
+      blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y , 0, 0, size_mapa_x, size_mapa_y );       //la primera pantalla empieza en el tamaño del mapa menos 480.
+ 
       //textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
       //textprintf(screen, font, 10,20, palette_color[12], "pantalla  %d", fondo_pantalla);
       textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
@@ -174,7 +176,7 @@ do
       draw_sprite(screen, cochePPAL, coordX, coordY);                           //formato doble buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
           
 //------------------------------------------------------------------------------cambio pantalla. y dibujos aleatorios 
- if ( (recorre_y == (size_mapa_y + modo_pantallaY -1 )) &&  (fin_juego == 0)) 
+ if ( (recorre_y >= size_mapa_y  ) &&  (fin_juego == 0)) 
           {
           fondo_pantalla =  rand() % pantallas_en_disco ;                       //cojo una pantalla aleatoria
           recorre_y = 0;

@@ -30,7 +30,10 @@ void coches_a_mostrar (int coches_a_mostrar_pantalla)
               
     if (x_aleatorio_coche_extra >= 600)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra - 150; }   
     if (x_aleatorio_coche_extra <= 100)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra + 150; }   
-    blit(coches_extra, fondo1, size_coche_extra_x*numero_coches_a_mostrar_pantalla, 0, x_aleatorio_coche_extra, y_aleatorio_coche_extra, size_coche_extra_x, size_coche_extra_y);                                                                  
+    
+    coches_extra_doble_buffer = create_bitmap(size_coche_extra_x, size_coche_extra_y);  
+    blit(coches_extra, coches_extra_doble_buffer, size_coche_extra_x*numero_coches_a_mostrar_pantalla, 0 , 0, 0, size_coche_extra_x, size_coche_extra_y );   
+    draw_sprite(fondo1, coches_extra_doble_buffer, x_aleatorio_coche_extra, y_aleatorio_coche_extra);
   }          
 return ;     
 }
@@ -45,7 +48,6 @@ void bicis_a_mostrar (int bicis_a_mostrar_pantalla)
   int color_para_posicionarx11=1, color_para_posicionarx22=1, 
       color_para_posicionarx33=1, color_para_posicionarx44=1;
   int numero_bicis_a_mostrar_pantalla=1;
-
   
   for (numero_bicis_a_mostrar_pantalla = 1; numero_bicis_a_mostrar_pantalla <= bicis_a_mostrar_pantalla; numero_bicis_a_mostrar_pantalla ++)
   {  
@@ -63,10 +65,11 @@ void bicis_a_mostrar (int bicis_a_mostrar_pantalla)
     ( color_para_posicionarx22 !=0) && 
     ( color_para_posicionarx33 !=0) && 
     ( color_para_posicionarx44 !=0)); 
-
-    blit(bicis_extra, fondo1, size_bici_extra_x*numero_bicis_a_mostrar_pantalla, 0, x_aleatorio_bici_extra, y_aleatorio_bici_extra, size_bici_extra_x, size_bici_extra_y);                                                                  
- 
-  
+         
+    bicis_extra_doble_buffer = create_bitmap(size_bici_extra_x, size_bici_extra_y);  
+    blit(bicis_extra, bicis_extra_doble_buffer, size_bici_extra_x*numero_bicis_a_mostrar_pantalla, 0 , 0, 0, size_bici_extra_x, size_bici_extra_y );   
+    draw_sprite(fondo1, bicis_extra_doble_buffer, x_aleatorio_bici_extra, y_aleatorio_bici_extra);
+     
   }          
 return ;     
 }
