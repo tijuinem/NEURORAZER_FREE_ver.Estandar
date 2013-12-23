@@ -7,8 +7,9 @@
 //      versión alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
 //      versión alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
 //      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
+//      versión Beta 1.1  23-12-2013                                    //ahora también con camiones ...
 
-       char version_ultima[80] = "versión Beta 1.0  18-12-2013";        //actualizar aqui la versión a la hora de compilar
+       char version_ultima[80] = "versión Beta 1.1  23-12-2013";        //actualizar aqui la versión a la hora de compilar
        char  programadores[80] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
@@ -37,10 +38,11 @@
  int size_coche_y = 100, size_coche_x = 50; 
  int size_mapa_x = 640, size_mapa_y = 8000;
  bool mostramos_coches=false, mostramos_bicis =false, mostramos_camiones = false;
- bool activar_punto_rojo = false, activar_punto_amarillo=false;
  int numero_coches_a_incrementar =1, numero_bicis_a_incrementar =1 ,numero_camiones_a_incrementar =1; 
- char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS  NO(F3)";
- char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES NO(F4)"; 
+ bool activar_punto_rojo = false, activar_punto_amarillo=false;
+ char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS    NO(F3)";
+ char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES   NO(F4)"; 
+ char esto_es_si_camiones [20]= "CAMIONES  SI", esto_es_no_camiones [30]= "CAMIONES NO(F5)"; 
  char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(F9)";
  char esto_es_si_p_amarillo [20]= "AMARILLO  SI", esto_es_no_p_amarillo [30]= "AMARILLO  (F10)";
  
@@ -92,9 +94,9 @@ void main(void)
  fondo9 = load_bitmap ("graficos/recta 640 8000 mar.pcx", paleta); 
 
 //------------------------------------------------------------------------------coches en la carretera
- coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);    //prueba con fondo fucsia. si con draw. no con blit.
- bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);            //cada bici tiene 50*100. hay 6 .
- camiones_extra  = load_bitmap ("graficos/7camiones100pixels-ancho.pcx",  paleta);
+ coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);     //prueba con fondo fucsia. si con draw. no con blit.
+ bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);     //cada bici tiene 50*100. hay 6 .
+ camiones_extra  = load_bitmap ("graficos/7camiones100pixels-ancho.pcx", paleta);
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
  int coordX = 300 , coordY= 200 ;                                               //posicion de salida
@@ -167,12 +169,17 @@ do
       if (mostramos_coches == true) 
          { textout(screen, font, esto_es_si_coches, 10, 80, palette_color[12]);   } 
          else {textout(screen, font, esto_es_no_coches, 10, 80, palette_color[9]);}
+      if (mostramos_camiones == true) 
+         { textout(screen, font, esto_es_si_camiones, 10, 90, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_camiones, 10, 90, palette_color[9]);}
       if (activar_punto_rojo == true) 
-         { textout(screen, font, esto_es_si_p_rojo, 10, 90, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_rojo, 10, 90, palette_color[9]);}
+         { textout(screen, font, esto_es_si_p_rojo, 10, 100, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_rojo, 10, 100, palette_color[9]);}
       if (activar_punto_amarillo == true) 
-         { textout(screen, font, esto_es_si_p_amarillo, 10, 100, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_amarillo, 10, 100, palette_color[9]);}             
+         { textout(screen, font, esto_es_si_p_amarillo, 10, 110, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_amarillo, 10, 110, palette_color[9]);} 
+     
+           
             
       
       blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, 50, 100 );           //con doble buffer. ventaja que cojo cachos.
@@ -366,6 +373,7 @@ rest (retraso_pintar);
  destroy_bitmap(portada_y_salida);
  destroy_bitmap(coches_extra);
  destroy_bitmap(bicis_extra);
+ destroy_bitmap(camiones_extra);
  
 //------------------------------------------------------------------------------destruyo todas las memorias audio
  destroy_sample(choque);
