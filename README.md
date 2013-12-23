@@ -19,6 +19,7 @@ Ambos proyectos se liberan de forma Open Source en Github en Dic. 2013, para que
 * versión alfa 1.3 16-12-2013 .aleatorio de coches en pantalla. modificado el sistema de velocidades del juego.
 * versión alfa 1.4 17-12-2013 .aparicion o no de bicis, coches, y segunda tarea.
 * versión Beta 1.0 18-12-2013 .primera versión jugable pública. fallo en la aparición del tráfico en los aleatorios.
+* versión Beta 1.1 23-12-2013 .fichero help.html. Añado camiones al circuito.
 
 
 ###Mejoras Pendientes.
