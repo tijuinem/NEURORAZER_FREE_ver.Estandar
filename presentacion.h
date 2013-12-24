@@ -21,8 +21,8 @@ void PRESENTACION (void)
               
      textprintf(screen, font, 20,450, palette_color[9], "Distribuido Open Source bajo licencias GPL-GNU. Y bajo las condiciones CC");
      textout(screen, font,  programadores , 20, 460, palette_color[9]); 
-     textout(screen, font,  version_ultima, 20, 470, palette_color[9]);  
-          
+     textout(screen, font,  version_ultima, 20, 470, palette_color[9]);                     
+         
           if  (key[KEY_ESC]) 
           {
           destroy_bitmap(portada_y_salida);
@@ -30,8 +30,9 @@ void PRESENTACION (void)
           remove_sound();
           poll_keyboard();
           } 
+  
      } while (!key[KEY_ENTER]);
-     clear_keybuf();
-     destroy_bitmap(portada_y_salida);
-     return;     
+      clear_keybuf();
+      destroy_bitmap(portada_y_salida);   
+      return;     
 }

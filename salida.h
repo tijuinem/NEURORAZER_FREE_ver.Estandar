@@ -19,9 +19,10 @@ void SALIDA (void)
      textprintf(screen, font, 222,440, palette_color[10], "PULSA  -ENTER- PARA JUGAR DE NUEVO");     
      
      if  (key[KEY_ENTER]) 
-          {
-          destroy_bitmap(portada_y_salida);
-          PRESENTACION ();
+          {        
+          clear_keybuf(); 
+          destroy_bitmap(portada_y_salida); 
+          PRESENTACION ();            
           }           
      
      } while (!key[KEY_ESC]);

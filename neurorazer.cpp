@@ -1,5 +1,7 @@
 //      by Tijuinem :   tijuinem -at- gmail -dot- com                   //desarrollado con el proposito de aprender allegro :)
-//      NeuroRAZER versión "ESTANDAR". Clon-versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. Neuroracer es un videojuego creado para mejorar el rendimiento cognitivo.
+//      NeuroRAZER versión "ESTANDAR". Clon-versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. 
+//      NeuroraZer es un videojuego creado para mejorar el rendimiento cognitivo.
+
 //      Indice de versiones:
 //      versión alfa 1.0  09-12-2013                                    //version modo local
 //      versión alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
@@ -9,8 +11,8 @@
 //      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
 //      versión Beta 1.1  23-12-2013                                    //ahora también con camiones ...
 
-       char version_ultima[80] = "versión Beta 1.1  23-12-2013";        //actualizar aqui la versión a la hora de compilar
-       char  programadores[80] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
+       char version_ultima[50] =  "version Beta 1.1  23-12-2013";        //actualizar aqui la versión a la hora de compilar
+       char  programadores[600] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
     /\  _  \ /\_ \  /\_ \
@@ -31,7 +33,7 @@
  BITMAP *coches_extra_doble_buffer, *bicis_extra_doble_buffer, *camiones_extra_doble_buffer;
  PALLETE paleta;
  long int puntos_ppal = 0;
- long int vida_ppal = 4664;
+ long int vida_ppal = 4664;                                                     //homenaje a N.M. 
  int velocidad_scroll = 1;                                                      //aconsejable si no funciona el fps.
  int balas = 100;
  int pantallas_recorridas =0;
@@ -40,11 +42,11 @@
  bool mostramos_coches=false, mostramos_bicis =false, mostramos_camiones = false;
  int numero_coches_a_incrementar =1, numero_bicis_a_incrementar =1 ,numero_camiones_a_incrementar =1; 
  bool activar_punto_rojo = false, activar_punto_amarillo=false;
- char esto_es_si_bicis [20]=  "BICIS     SI", esto_es_no_bicis [30]=  "BICIS    NO(F3)";
- char esto_es_si_coches [20]= "COCHES    SI", esto_es_no_coches [30]= "COCHES   NO(F4)"; 
- char esto_es_si_camiones [20]= "CAMIONES  SI", esto_es_no_camiones [30]= "CAMIONES NO(F5)"; 
- char esto_es_si_p_rojo [20]= "P.ROJO    SI", esto_es_no_p_rojo [30]= "P.ROJO NO(F9)";
- char esto_es_si_p_amarillo [20]= "AMARILLO  SI", esto_es_no_p_amarillo [30]= "AMARILLO  (F10)";
+ char esto_es_si_bicis [20]=      "BICIS     SI",     esto_es_no_bicis [30]=  "BICIS    NO(F3)";
+ char esto_es_si_coches [20]=     "COCHES    SI",     esto_es_no_coches [30]= "COCHES   NO(F4)"; 
+ char esto_es_si_camiones [20]=   "CAMIONES  SI",   esto_es_no_camiones [30]= "CAMIONES NO(F5)"; 
+ char esto_es_si_p_rojo [20]=     "P.ROJO    SI",     esto_es_no_p_rojo [30]= "P.ROJO   (F9)";
+ char esto_es_si_p_amarillo [20]= "AMARILLO  SI", esto_es_no_p_amarillo [30]= "AMARILLO  F10)";
  
 //------------------------------------------------------------------------------cargo ficheros externos
 #include "carga_pantallas.h" 
@@ -53,7 +55,7 @@
 #include "coches_a_mostrar.h"
 
 //------------------------------------------------------------------------------modo grafico del juego
-#define modo_pantallaX  640
+#define modo_pantallaX  640                                                     //modo seleccionado para que funcione en cualquier ordenador por obsoleto que esté. como mi 386 XD
 #define modo_pantallaY 480
 #define numero_de_bits 16 
 
@@ -179,9 +181,6 @@ do
       if (activar_punto_amarillo == true) 
          { textout(screen, font, esto_es_si_p_amarillo, 10, 110, palette_color[12]);   } 
          else {textout(screen, font, esto_es_no_p_amarillo, 10, 110, palette_color[9]);} 
-     
-           
-            
       
       blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, 50, 100 );           //con doble buffer. ventaja que cojo cachos.
       draw_sprite(screen, doble_buffer_cochePPAL, coordX, coordY); 
