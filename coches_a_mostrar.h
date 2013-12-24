@@ -11,7 +11,7 @@ void coches_a_mostrar (int coches_a_mostrar_pantalla)
       color_para_posicionarx5=1;
   int numero_coches_a_mostrar_pantalla=1;
   
-  for (numero_coches_a_mostrar_pantalla = 1; numero_coches_a_mostrar_pantalla <= coches_a_mostrar_pantalla; numero_coches_a_mostrar_pantalla ++)
+  for (numero_coches_a_mostrar_pantalla = 0; numero_coches_a_mostrar_pantalla <= coches_a_mostrar_pantalla-1; numero_coches_a_mostrar_pantalla ++)
   {  
     do
       {
@@ -53,7 +53,7 @@ void bicis_a_mostrar (int bicis_a_mostrar_pantalla)
       color_para_posicionarx5=1;
   int numero_bicis_a_mostrar_pantalla=1;
   
-  for (numero_bicis_a_mostrar_pantalla = 1; numero_bicis_a_mostrar_pantalla <= bicis_a_mostrar_pantalla; numero_bicis_a_mostrar_pantalla ++)
+  for (numero_bicis_a_mostrar_pantalla = 0; numero_bicis_a_mostrar_pantalla <= bicis_a_mostrar_pantalla-1; numero_bicis_a_mostrar_pantalla ++)
   {  
     do
     {
@@ -96,7 +96,7 @@ void camiones_a_mostrar (int camiones_a_mostrar_pantalla)
       color_para_posicionarx5=1;
   int numero_camiones_a_mostrar_pantalla=1;
   
-  for (numero_camiones_a_mostrar_pantalla = 1; numero_camiones_a_mostrar_pantalla <= camiones_a_mostrar_pantalla; numero_camiones_a_mostrar_pantalla ++)
+  for (numero_camiones_a_mostrar_pantalla = 0; numero_camiones_a_mostrar_pantalla <= camiones_a_mostrar_pantalla-1; numero_camiones_a_mostrar_pantalla ++)
   {  
     do
       {

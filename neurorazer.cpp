@@ -139,9 +139,10 @@ void main(void)
   int dificultad_aleatorio = 5000;
   int x_aleatorio, y_aleatorio;
   bool punto_rojo_en_pantalla = false, punto_amarillo_en_pantalla = false; 
-  BITMAP *punto_rojo, *punto_amarillo; //con doble buffer peor.                                  
+  BITMAP *punto_rojo, *punto_amarillo,; //con doble buffer igual pq trabajo sobre screen, no fondo.                                  
   punto_rojo = load_bitmap ("graficos/punto_rojo.pcx", paleta);
   punto_amarillo = load_bitmap ("graficos/punto_amarillo.pcx", paleta);
+
   
 //------------------------------------------------------------------------------programacion ppal del juego   
  PRESENTACION ();
@@ -240,13 +241,14 @@ do
   
   if (( aleatorio == 666 ) && (activar_punto_amarillo == true)) {  punto_amarillo_en_pantalla = true;  }
   if ( punto_amarillo_en_pantalla == true ) 
-  { 
+  {   
   draw_sprite(screen, punto_amarillo, x_aleatorio, y_aleatorio); 
   play_sample(choque, 255, 0, 3000, FALSE); 
   vida_ppal -- ;
   }  
   
 //------------------------------------------------------------------------tema raton. le doy x pixels para que detecte posicion.
+    if ( activar_punto_rojo== true){
     switch (mouse_b)
       {
       case 0:
@@ -269,10 +271,9 @@ do
        punto_rojo_en_pantalla = 0;
        balas = balas + 15;
        }
-   
+   }   
    if ((key[KEY_SPACE]) && (punto_amarillo_en_pantalla == true))
    {punto_amarillo_en_pantalla = false;}
-
 
 //------------------------------------------------------------------------------colores que rodean al coche. para choques
   color_en_x_coche_arriba_izda =  _getpixel16 (screen, coordX , coordY);          //probado tambien con _getpixel16 y _getpixel . 
