@@ -113,6 +113,31 @@
      } 
      
      
+//--------------------------------------------------------------------------------------------------------scroll.
+int size_mapa_x = 640, size_mapa_y = 8000;
+int recorre_y =0;
+int size_pantalla_mostar = 480;
+do
+{ 
+ if (recorre_y <= size_mapa_y +480 )
+  {
+      recorre_y ++;
+      blit(fondo1, screen, 0, size_mapa_y - 480 - recorre_y , 0, 0, 640, 480 );     
+      //void blit(BITMAP *source, BITMAP *dest, int source_x, int source_y, int dest_x, int dest_y, int width, int height);
+      textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
+      textprintf(screen, font, 10,20, palette_color[12], "Pantalla  %d", fondo_pantalla);
+
+ if ( (recorre_y >= size_mapa_y   ) &&  (fin_juego == 0)) 
+          {
+          fondo_pantalla =  rand() % pantallas_en_disco ;                   
+          recorre_y = -480;
+          carga_pantalla (fondo_pantalla);                         
+          } 
+//----------------------------------------------------------------------------------------------------------
+     
+     
+     
+     
      
      
      

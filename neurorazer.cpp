@@ -40,13 +40,13 @@
  int size_coche_y = 100, size_coche_x = 50; 
  int size_mapa_x = 640, size_mapa_y = 8000;
  bool mostramos_coches=false, mostramos_bicis =false, mostramos_camiones = false;
- int numero_coches_a_incrementar =1, numero_bicis_a_incrementar =1 ,numero_camiones_a_incrementar =1; 
+ int numero_coches_a_incrementar =0, numero_bicis_a_incrementar =0 ,numero_camiones_a_incrementar =0; 
  bool activar_punto_rojo = false, activar_punto_amarillo=false;
- char esto_es_si_bicis [20]=      "BICIS     SI",     esto_es_no_bicis [30]=  "BICIS    NO(F3)";
- char esto_es_si_coches [20]=     "COCHES    SI",     esto_es_no_coches [30]= "COCHES   NO(F4)"; 
- char esto_es_si_camiones [20]=   "CAMIONES  SI",   esto_es_no_camiones [30]= "CAMIONES NO(F5)"; 
- char esto_es_si_p_rojo [20]=     "P.ROJO    SI",     esto_es_no_p_rojo [30]= "P.ROJO   (F9)";
- char esto_es_si_p_amarillo [20]= "AMARILLO  SI", esto_es_no_p_amarillo [30]= "AMARILLO  F10)";
+ char esto_es_si_bicis [20]=      "BICIS       SI",     esto_es_no_bicis [30]=  "BICIS     NO(F3)";
+ char esto_es_si_coches [20]=     "COCHES      SI",     esto_es_no_coches [30]= "COCHES    NO(F4)"; 
+ char esto_es_si_camiones [20]=   "CAMIONES    SI",   esto_es_no_camiones [30]= "CAMIONES  NO(F5)"; 
+ char esto_es_si_p_rojo [20]=     "P.ROJO      SI",     esto_es_no_p_rojo [30]= "P.ROJO     (F9)";
+ char esto_es_si_p_amarillo [20]= "P.AMARILLO  SI", esto_es_no_p_amarillo [30]= "P.AMARILLO (F10)";
  
 //------------------------------------------------------------------------------cargo ficheros externos
 #include "carga_pantallas.h" 
@@ -155,11 +155,11 @@ void main(void)
  
 do
 { 
- if (recorre_y <= size_mapa_y + modo_pantallaY)
+
+ if (recorre_y <= size_mapa_y + modo_pantallaY )
   {
       recorre_y = recorre_y + velocidad_scroll;
-      blit(fondo1, screen, 0, size_mapa_y - size_pantalla_mostar - recorre_y , 0, 0, size_mapa_x, size_mapa_y );       //la primera pantalla empieza en el tamaño del mapa menos 480.
- 
+      blit(fondo1, screen, 0, size_mapa_y - modo_pantallaX  - recorre_y , 0, 0, modo_pantallaX , modo_pantallaY );       //la primera pantalla empieza en el tamaño del mapa menos 480.
       //textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
       //textprintf(screen, font, 10,20, palette_color[12], "pantalla  %d", fondo_pantalla);
       textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
@@ -182,7 +182,7 @@ do
          { textout(screen, font, esto_es_si_p_amarillo, 10, 110, palette_color[12]);   } 
          else {textout(screen, font, esto_es_no_p_amarillo, 10, 110, palette_color[9]);} 
       
-      blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, 50, 100 );           //con doble buffer. ventaja que cojo cachos.
+      blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, size_coche_x, size_coche_y );           //con doble buffer. ventaja que cojo cachos.
       draw_sprite(screen, doble_buffer_cochePPAL, coordX, coordY); 
       //draw_sprite(screen, cochePPAL, coordX, coordY);                          //formato simple buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
           
@@ -190,9 +190,11 @@ do
  if ( (recorre_y >= size_mapa_y  ) &&  (fin_juego == 0)) 
           {
           fondo_pantalla =  rand() % pantallas_en_disco ;                       //cojo una pantalla aleatoria
-          recorre_y = 0;
+          recorre_y = - modo_pantallaY;
           pantallas_recorridas ++;
-          size_pantalla_mostar = 0;  
+          size_pantalla_mostar = 0;
+          //textprintf(screen, font, 310,50, palette_color[15], "Vida + 100   %d", vida_ppal);
+          vida_ppal = vida_ppal + 100;  
           carga_pantalla (fondo_pantalla);
           if (mostramos_bicis  == true )                                        //lamo a los vehiculos a mostrar tantas veces como vaya marcando. cada vez, 6 coches.
               {
