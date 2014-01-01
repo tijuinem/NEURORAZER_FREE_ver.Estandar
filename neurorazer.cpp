@@ -1,4 +1,4 @@
-//      by Tijuinem :   tijuinem -at- gmail -dot- com                   //desarrollado con el proposito de aprender allegro :)
+//      by Tijuinem :   tijuinem -at- gmail -dot- com                   
 //      NeuroRAZER versión "ESTANDAR". Clon-versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. 
 //      NeuroraZer es un videojuego creado para mejorar el rendimiento cognitivo.
 
@@ -10,9 +10,10 @@
 //      versión alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
 //      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
 //      versión Beta 1.1  23-12-2013                                    //ahora también con camiones ...
+//      versión Beta 1.2  01-01-2014                                    //incrementar/decrementar vechiculos. quitar/poner tareas.
 
-       char version_ultima[50] =  "version Beta 1.1  23-12-2013";        //actualizar aqui la versión a la hora de compilar
-       char  programadores[600] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
+       char version_ultima[50] =  "version Beta 1.2  01-01-2014";       //actualizar aqui la versión a la hora de compilar
+       char programadores[600] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
     /\  _  \ /\_ \  /\_ \
@@ -42,11 +43,11 @@
  bool mostramos_coches=false, mostramos_bicis =false, mostramos_camiones = false;
  int numero_coches_a_incrementar =0, numero_bicis_a_incrementar =0 ,numero_camiones_a_incrementar =0; 
  bool activar_punto_rojo = false, activar_punto_amarillo=false;
- char esto_es_si_bicis [20]=      "BICIS       SI",     esto_es_no_bicis [30]=  "BICIS     NO(F3)";
- char esto_es_si_coches [20]=     "COCHES      SI",     esto_es_no_coches [30]= "COCHES    NO(F4)"; 
- char esto_es_si_camiones [20]=   "CAMIONES    SI",   esto_es_no_camiones [30]= "CAMIONES  NO(F5)"; 
- char esto_es_si_p_rojo [20]=     "P.ROJO      SI",     esto_es_no_p_rojo [30]= "P.ROJO     (F9)";
- char esto_es_si_p_amarillo [20]= "P.AMARILLO  SI", esto_es_no_p_amarillo [30]= "P.AMARILLO (F10)";
+ char esto_es_si_bicis [25]=      "BICIS      (F3/F4)",         esto_es_no_bicis [30]= "BICIS    NO(F3/F4)";
+ char esto_es_si_coches [25]=     "COCHES     (F5/F6)",        esto_es_no_coches [30]= "COCHES   NO(F5/F6)"; 
+ char esto_es_si_camiones [25]=   "CAMIONES   (F7/F8)",      esto_es_no_camiones [30]= "CAMIONES NO(F7/F8)"; 
+ char esto_es_si_p_rojo [25]=     "P.ROJO     SI(F9)",         esto_es_no_p_rojo [30]= "P.ROJO     NO(F9)";
+ char esto_es_si_p_amarillo [25]= "P.AMARILLO SI(F10)",    esto_es_no_p_amarillo [30]= "P.AMARILLO NO(F10)";
  
 //------------------------------------------------------------------------------cargo ficheros externos
 #include "carga_pantallas.h" 
@@ -59,6 +60,14 @@
 #define modo_pantallaY 480
 #define numero_de_bits 16 
 
+//-------temporizadores---------------------------------------------------------temporizadores------------  
+  volatile int cuenta_atras;
+      void mi_temporizador()
+      {            
+      cuenta_atras--; 
+      }
+      END_OF_FUNCTION(mi_temporizador);  
+//------------------------------------------------------------------------------main-----------  
 void main(void)
 { 
 //------------------------------------------------------------------------------variables generales generales y configuraciones básicas 
@@ -81,6 +90,10 @@ void main(void)
  //unscare_mouse();                                                             /*no oculto raton*/
  //show_mouse(screen);                                                          //dibujo el raton basico . quito el raton normal
  //show_mouse(punto_mira);
+
+//-------temporizadores------------------------------------------------------temporizadores------------   
+   LOCK_VARIABLE(contador);
+   LOCK_FUNCTION(mi_temporizador);        
                                          
 //------------------------------------------------------------------------------cargo  graficos
  clear_keybuf(); // Borra el buffer del teclado 
@@ -96,12 +109,12 @@ void main(void)
  fondo9 = load_bitmap ("graficos/recta 640 8000 mar.pcx", paleta); 
 
 //------------------------------------------------------------------------------coches en la carretera
- coches_extra = load_bitmap ("graficos/6coches50pixels-ancho.pcx", paleta);     //prueba con fondo fucsia. si con draw. no con blit.
- bicis_extra  = load_bitmap ("graficos/6bicis50pixels-ancho.pcx",  paleta);     //cada bici tiene 50*100. hay 6 .
- camiones_extra  = load_bitmap ("graficos/7camiones100pixels-ancho.pcx", paleta);
+ coches_extra = load_bitmap   ("graficos/6coches50pixels-ancho.pcx", paleta);     //prueba con fondo fucsia. si con draw. no con blit.
+ bicis_extra  = load_bitmap   ("graficos/6bicis50pixels-ancho.pcx",  paleta);     //cada bici tiene 50*100. hay 6 .
+ camiones_extra = load_bitmap ("graficos/7camiones100pixels-ancho.pcx", paleta);
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
- int coordX = 300 , coordY= 200 ;                                               //posicion de salida
+ int coordX = 300 , coordY= 300 ;                                               //posicion de salida
  int incremento_corrdenadas = 1;  
  int fondoX = 0 , fondoY= 0 ;                                                   //colores de fondo por defecto NEGRO
  int limite_pantalla_X = modo_pantallaX - size_coche_x, limite_pantalla_Y  = modo_pantallaY - size_coche_y; //limites de pantalla para el objeto.
@@ -119,6 +132,7 @@ void main(void)
  int retraso_pintar = 1;                                                        //1 si no FPS
  int size_pantalla_mostar = 480;
  int pantallas_en_disco = 10;
+ bool activa_titulo_vida_extra = false;
 
 //------------------------------------------------------------------------------sonido
  SAMPLE *choque;
@@ -152,7 +166,7 @@ void main(void)
  if (mostramos_bicis    == true ) {bicis_a_mostrar    (6); }
  if (mostramos_coches   == true ) {coches_a_mostrar   (6); }
  if (mostramos_camiones == true)  {camiones_a_mostrar (7); }
- 
+ install_int(mi_temporizador, 1000);
 do
 { 
 
@@ -162,30 +176,38 @@ do
       blit(fondo1, screen, 0, size_mapa_y - modo_pantallaX  - recorre_y , 0, 0, modo_pantallaX , modo_pantallaY );       //la primera pantalla empieza en el tamaño del mapa menos 480.
       //textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
       //textprintf(screen, font, 10,20, palette_color[12], "pantalla  %d", fondo_pantalla);
+      
       textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
       textprintf(screen, font, 10,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
-      textprintf(screen, font, 10,50, palette_color[12], "VEL F1/F2 %d", velocidad_scroll);
-      textprintf(screen, font, 10,60, palette_color[12], "BALAS     %d", balas); 
+      textprintf(screen, font, 10,50, palette_color[12], "BALAS     %d", balas); 
+      textprintf(screen, font, 10,60, palette_color[11], "==================", velocidad_scroll);
+      textprintf(screen, font, 10,70, palette_color[14], "                %d", velocidad_scroll);
+      textprintf(screen, font, 10,70, palette_color[12], "VELOCIDAD F1/F2:");
+      textprintf(screen, font, 10,130, palette_color[12], "TURBO/FRENO F11/F12");
+     
       if (mostramos_bicis == true) 
-         { textout(screen, font, esto_es_si_bicis, 10, 70, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_bicis, 10, 70, palette_color[9]);}
+         { textout(screen, font, esto_es_si_bicis, 10, 80, palette_color[12]);
+           textprintf(screen, font, 75,80, palette_color[14], "=%d ", numero_bicis_a_incrementar *6); } 
+         else {textout(screen, font, esto_es_no_bicis, 10, 80, palette_color[9]);}
       if (mostramos_coches == true) 
-         { textout(screen, font, esto_es_si_coches, 10, 80, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_coches, 10, 80, palette_color[9]);}
+         { textout(screen, font, esto_es_si_coches, 10, 90, palette_color[12]);
+           textprintf(screen, font, 75,90, palette_color[14], "=%d ", numero_coches_a_incrementar *6);   } 
+         else {textout(screen, font, esto_es_no_coches, 10, 90, palette_color[9]);}
       if (mostramos_camiones == true) 
-         { textout(screen, font, esto_es_si_camiones, 10, 90, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_camiones, 10, 90, palette_color[9]);}
+         { textout(screen, font, esto_es_si_camiones, 10, 100, palette_color[12]);  
+           textprintf(screen, font, 75,100, palette_color[14], "=%d ", numero_camiones_a_incrementar *7); } 
+         else {textout(screen, font, esto_es_no_camiones, 10, 100, palette_color[9]);}
       if (activar_punto_rojo == true) 
-         { textout(screen, font, esto_es_si_p_rojo, 10, 100, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_rojo, 10, 100, palette_color[9]);}
+         { textout(screen, font, esto_es_si_p_rojo, 10, 110, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_rojo, 10, 110, palette_color[9]);}
       if (activar_punto_amarillo == true) 
-         { textout(screen, font, esto_es_si_p_amarillo, 10, 110, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_amarillo, 10, 110, palette_color[9]);} 
+         { textout(screen, font, esto_es_si_p_amarillo, 10, 120, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_amarillo, 10, 120, palette_color[9]);} 
       
       blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, size_coche_x, size_coche_y );           //con doble buffer. ventaja que cojo cachos.
       draw_sprite(screen, doble_buffer_cochePPAL, coordX, coordY); 
       //draw_sprite(screen, cochePPAL, coordX, coordY);                          //formato simple buffer. resultados similares. velocidad mas lenta. ademas aqui trabajo cogiendo puntos de color.
-          
+         
 //------------------------------------------------------------------------------cambio pantalla. y dibujos aleatorios 
  if ( (recorre_y >= size_mapa_y  ) &&  (fin_juego == 0)) 
           {
@@ -194,7 +216,9 @@ do
           pantallas_recorridas ++;
           size_pantalla_mostar = 0;
           //textprintf(screen, font, 310,50, palette_color[15], "Vida + 100   %d", vida_ppal);
-          vida_ppal = vida_ppal + 100;  
+          activa_titulo_vida_extra = true ;
+          cuenta_atras = 2;  
+          vida_ppal = vida_ppal + 100;                     
           carga_pantalla (fondo_pantalla);
           if (mostramos_bicis  == true )                                        //lamo a los vehiculos a mostrar tantas veces como vaya marcando. cada vez, 6 coches.
               {
@@ -213,8 +237,15 @@ do
               }
           x_aleatorio = rand() % 550;                                           //para mostrar el punto rojo en diferentes sitios en cada circuito
           y_aleatorio = rand() % 375;                          
-          } 
-  
+          }
+           
+//------------------------------------------------------------------------------activa_titulos_vida_extra ---avisos de reloj------
+    if (activa_titulo_vida_extra == true  || cuenta_atras >=1 )
+          {    
+          textprintf(screen, font, 200,100, palette_color[15], " + 100 puntos de vida Extra");
+          textprintf(screen, font, 200,120, palette_color[15], "        Pantalla %d" , pantallas_recorridas);          
+          activa_titulo_vida_extra = false;                    
+          }  
 //------------------------------------------------------------------------------movimiento del coche. limites------------        
        if (key[KEY_ESC] || (fin_juego == 1))  //escape de juego
            {
@@ -307,7 +338,8 @@ do
             velocidad_scroll ++;
             break;
         case KEY_F2:
-            if ( velocidad_scroll < 1) { velocidad_scroll = 1; puntos_ppal --;}
+            if ( velocidad_scroll < 1) 
+            { velocidad_scroll = 1; puntos_ppal --;}
             velocidad_scroll --;
             break;
         case KEY_F3:
@@ -315,24 +347,45 @@ do
             mostramos_bicis =   true;
             break;
         case KEY_F4:
+            numero_bicis_a_incrementar --;
+            if (numero_bicis_a_incrementar <= 0) 
+            {numero_bicis_a_incrementar=0; mostramos_bicis = false;}
+            break;
+        case KEY_F5:
             numero_coches_a_incrementar ++;
             mostramos_coches =  true;
             break;
-        case KEY_F5:
+        case KEY_F6:
+            numero_coches_a_incrementar --;
+            if (numero_coches_a_incrementar <= 0) 
+            {numero_coches_a_incrementar=0; mostramos_coches = false;}
+            break;
+        case KEY_F7:
             numero_camiones_a_incrementar ++;
             mostramos_camiones =  true;
             break;
-        case KEY_F9:
-            activar_punto_rojo= true;
+        case KEY_F8:
+            numero_camiones_a_incrementar --;
+            if (numero_camiones_a_incrementar <= 0) 
+            {numero_camiones_a_incrementar=0; mostramos_camiones = false;}
             break;
+        case KEY_F9:
+            if (activar_punto_rojo==true ) {activar_punto_rojo = false;} 
+            else if (activar_punto_rojo == false) {activar_punto_rojo = true;}
+            break;                 
         case KEY_F10:
-            activar_punto_amarillo= true;
+            if (activar_punto_amarillo==true ) {activar_punto_amarillo = false;} 
+            else if (activar_punto_amarillo == false) {activar_punto_amarillo = true;}
             break;
         case KEY_F11:
-            retraso_pintar ++ ;
+            retraso_pintar -- ;
+            if (retraso_pintar <= 0) {retraso_pintar=0;}
             break;
         case KEY_F12:
-            retraso_pintar=0;
+            retraso_pintar ++;
+            break;
+        case KEY_O:
+            dificultad_aleatorio = 1000;                                     
             break;
         case KEY_P:
             puntos_ppal= puntos_ppal + 1000;                                    //haciendo trampas 
@@ -340,10 +393,22 @@ do
     }
   }    
   //------------------------------------------trampas y puntos
+  
+  if (pantallas_recorridas == 30 ) 
+          {   
+          mostramos_camiones = true;
+          numero_camiones_a_incrementar =1;
+          mostramos_bicis =   true;
+          numero_bicis_a_incrementar =1;
+          mostramos_coches =  true;
+          numero_coches_a_incrementar =1;
+          activar_punto_rojo = true;
+          activar_punto_amarillo= true;
+          }
   if ( (puntos_ppal > 1000000) ) { velocidad_scroll = 10; }
   if ( (puntos_ppal > 2000000) ) { velocidad_scroll = 25; }
   if ( (puntos_ppal > 500000) )  { retraso_pintar = 0; }                
-  if (  vida_ppal == 0 ) { 
+  if (  vida_ppal <= 0 ) { 
         fin_juego = 1; textout(screen, font, 
         "Vida principal terminada. FIN de JUEGO", 200,200, palette_color[15]); 
         rest (2000); 

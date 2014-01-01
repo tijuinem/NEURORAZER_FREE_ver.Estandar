@@ -9,12 +9,12 @@ void PRESENTACION (void)
      textprintf(screen, font, 20,250, palette_color[12], "NEURORAZER, Edicion Estandar. CONTROLES:");
      textprintf(screen, font, 20,263, palette_color[10], "* Control del COCHE con el -CURSOR- ");
      textprintf(screen, font, 20,278, palette_color[10], "* TECLAS -F1/F2- Para Aumentar/Disminuir la Velocidad.");
-     textprintf(screen, font, 20,293, palette_color[10], "* TECLA -F3- para activar y aumentar la presencia de Bicicletas.");
-     textprintf(screen, font, 20,308, palette_color[10], "* TECLA -F4- para activar y aumentar la presencia de Coches.");
-     textprintf(screen, font, 20,323, palette_color[10], "* TECLA -F5- para activar y aumentar la presencia de Camiones.");    
-     textprintf(screen, font, 20,338, palette_color[10], "* TECLA -F9- para activar la segunda tarea   (Punto Rojo) -> RATON");
+     textprintf(screen, font, 20,293, palette_color[10], "* TECLAS -F3/F4- para activar y aumentar la presencia de Bicicletas.");
+     textprintf(screen, font, 20,308, palette_color[10], "* TECLAS -F5/F6- para activar y aumentar la presencia de Coches.");
+     textprintf(screen, font, 20,323, palette_color[10], "* TECLAS -F7/F8- para activar y aumentar la presencia de Camiones.");    
+     textprintf(screen, font, 20,338, palette_color[10], "* TECLA -F9- para activar o quitar  la segunda tarea   (Punto Rojo) -> RATON");
      textprintf(screen, font, 20,353, palette_color[10], "* TECLA -F10-para activar la tercera tarea (P.Amarillo) -> BARRA ESPACIADORA");
-     textprintf(screen, font, 20,367, palette_color[10], "* TECLAS frenaaada !!! o TURBO  F11, F12)");
+     textprintf(screen, font, 20,367, palette_color[10], "* TECLAS frenaaada !!! o TURBO  F11 / F12)");
      
      textprintf(screen, font, 175,390, palette_color[12], " PULSA ENTER cuando estes listo");
      textprintf(screen, font, 175,400, palette_color[10], "PULSA ESC para abandonar el juego");

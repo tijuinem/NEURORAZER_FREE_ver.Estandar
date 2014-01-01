@@ -13,15 +13,17 @@ void SALIDA (void)
  
      textprintf(screen, font, 10,350, palette_color[9], "El funcionamiento de NeuroRazer tiene la capacidad de poder intervenir en ");  
      textprintf(screen, font, 10,360, palette_color[9], "el envejecimiento neuronal, mejorando nuestras capacidades cognitivas.");
-     textprintf(screen, font, 10,370, palette_color[9], "Es recomendable practicar de forma periodica. gracias por jugar !!! ");
+     textprintf(screen, font, 10,370, palette_color[9], "En cuanto controles los mandos: ACTIVA siempre por lo menos 2 o 3 tareas.");
+     textprintf(screen, font, 10,380, palette_color[9], "Es recomendable practicar de forma periodica. gracias por jugar !!! ");
     
      textprintf(screen, font, 222,420, palette_color[10], "     PULSA  -ESC- PARA SALIR ");   
      textprintf(screen, font, 222,440, palette_color[10], "PULSA  -ENTER- PARA JUGAR DE NUEVO");     
      
      if  (key[KEY_ENTER]) 
-          {        
+          {  
+          fin_juego = 0;      
           clear_keybuf(); 
-          destroy_bitmap(portada_y_salida); 
+          destroy_bitmap(portada_y_salida);           
           PRESENTACION ();            
           }           
      
