@@ -180,7 +180,7 @@ do
       textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
       textprintf(screen, font, 10,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
       textprintf(screen, font, 10,50, palette_color[12], "BALAS     %d", balas); 
-      textprintf(screen, font, 10,60, palette_color[11], "==================", velocidad_scroll);
+      textprintf(screen, font, 10,60, palette_color[14], "==================", velocidad_scroll);
       textprintf(screen, font, 10,70, palette_color[14], "                %d", velocidad_scroll);
       textprintf(screen, font, 10,70, palette_color[12], "VELOCIDAD F1/F2:");
       textprintf(screen, font, 10,130, palette_color[12], "TURBO/FRENO F11/F12");
@@ -215,7 +215,6 @@ do
           recorre_y = - modo_pantallaY;
           pantallas_recorridas ++;
           size_pantalla_mostar = 0;
-          //textprintf(screen, font, 310,50, palette_color[15], "Vida + 100   %d", vida_ppal);
           activa_titulo_vida_extra = true ;
           cuenta_atras = 2;  
           vida_ppal = vida_ppal + 100;                     
@@ -243,7 +242,7 @@ do
     if (activa_titulo_vida_extra == true  || cuenta_atras >=1 )
           {    
           textprintf(screen, font, 200,100, palette_color[15], " + 100 puntos de vida Extra");
-          textprintf(screen, font, 200,120, palette_color[15], "        Pantalla %d" , pantallas_recorridas);          
+          textprintf(screen, font, 200,120, palette_color[15], "        Pantalla %d        " , pantallas_recorridas);          
           activa_titulo_vida_extra = false;                    
           }  
 //------------------------------------------------------------------------------movimiento del coche. limites------------        
@@ -394,7 +393,7 @@ do
   }    
   //------------------------------------------trampas y puntos
   
-  if (pantallas_recorridas == 30 ) 
+  if (pantallas_recorridas >= 99 ) 
           {   
           mostramos_camiones = true;
           numero_camiones_a_incrementar =1;
@@ -407,7 +406,7 @@ do
           }
   if ( (puntos_ppal > 1000000) ) { velocidad_scroll = 10; }
   if ( (puntos_ppal > 2000000) ) { velocidad_scroll = 25; }
-  if ( (puntos_ppal > 500000) )  { retraso_pintar = 0; }                
+  if ( (puntos_ppal > 3000000) )  { retraso_pintar = 0; }                
   if (  vida_ppal <= 0 ) { 
         fin_juego = 1; textout(screen, font, 
         "Vida principal terminada. FIN de JUEGO", 200,200, palette_color[15]); 

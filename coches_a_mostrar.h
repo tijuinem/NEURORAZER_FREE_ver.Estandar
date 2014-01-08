@@ -16,7 +16,11 @@ void coches_a_mostrar (int coches_a_mostrar_pantalla)
     do
       {
     x_aleatorio_coche_extra = rand() % size_mapa_x;
-    y_aleatorio_coche_extra = rand() % size_mapa_y;
+    y_aleatorio_coche_extra = rand() % size_mapa_y;                 
+    if (x_aleatorio_coche_extra >= 600)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra - 150; }   
+    if (x_aleatorio_coche_extra <= 100)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra + 150; }  
+    if (y_aleatorio_coche_extra >= 7850)  {x_aleatorio_coche_extra = x_aleatorio_coche_extra - 200; }   
+    if (y_aleatorio_coche_extra <= 200)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra + 200; } 
     color_para_posicionarx1 =  getpixel (fondo1, x_aleatorio_coche_extra , y_aleatorio_coche_extra);
     color_para_posicionarx2 =  getpixel (fondo1, x_aleatorio_coche_extra + size_coche_extra_x, y_aleatorio_coche_extra);                          
     color_para_posicionarx3 =  getpixel (fondo1, x_aleatorio_coche_extra , y_aleatorio_coche_extra + size_coche_extra_y);                          
@@ -27,13 +31,7 @@ void coches_a_mostrar (int coches_a_mostrar_pantalla)
           ( color_para_posicionarx2 !=0000) && 
           ( color_para_posicionarx3 !=0000) && 
           ( color_para_posicionarx4 !=0000) &&       
-          ( color_para_posicionarx5 !=0000));         
-              
-    if (x_aleatorio_coche_extra >= 600)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra - 150; }   
-    if (x_aleatorio_coche_extra <= 100)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra + 150; }  
-    if (y_aleatorio_coche_extra >= 7850)  {x_aleatorio_coche_extra = x_aleatorio_coche_extra - 200; }   
-    if (y_aleatorio_coche_extra <= 200)   {x_aleatorio_coche_extra = x_aleatorio_coche_extra + 200; } 
-    
+          ( color_para_posicionarx5 !=0000));  
     coches_extra_doble_buffer = create_bitmap(size_coche_extra_x, size_coche_extra_y);  
     blit(coches_extra, coches_extra_doble_buffer, size_coche_extra_x*numero_coches_a_mostrar_pantalla, 0 , 0, 0, size_coche_extra_x, size_coche_extra_y );   
     draw_sprite(fondo1, coches_extra_doble_buffer, x_aleatorio_coche_extra, y_aleatorio_coche_extra);
@@ -59,6 +57,10 @@ void bicis_a_mostrar (int bicis_a_mostrar_pantalla)
     {
     x_aleatorio_bici_extra = rand() % size_mapa_x;
     y_aleatorio_bici_extra = rand() % size_mapa_y;
+    if (x_aleatorio_bici_extra >= 600)   {x_aleatorio_bici_extra = x_aleatorio_bici_extra - 150; }   
+    if (x_aleatorio_bici_extra <= 100)   {x_aleatorio_bici_extra = x_aleatorio_bici_extra + 150; } 
+    if (y_aleatorio_bici_extra >= 7850)  {x_aleatorio_bici_extra = x_aleatorio_bici_extra - 200; }   
+    if (y_aleatorio_bici_extra <= 200)   {x_aleatorio_bici_extra = x_aleatorio_bici_extra + 200; }
     color_para_posicionarx1 =  getpixel (fondo1, x_aleatorio_bici_extra , y_aleatorio_bici_extra);
     color_para_posicionarx2 =  getpixel (fondo1, x_aleatorio_bici_extra + size_bici_extra_x, y_aleatorio_bici_extra);                          
     color_para_posicionarx3 =  getpixel (fondo1, x_aleatorio_bici_extra , y_aleatorio_bici_extra + size_bici_extra_y);                          
@@ -68,14 +70,7 @@ void bicis_a_mostrar (int bicis_a_mostrar_pantalla)
           ( color_para_posicionarx2 !=0000) && 
           ( color_para_posicionarx3 !=0000) && 
           ( color_para_posicionarx4 !=0000) &&       
-          ( color_para_posicionarx5 !=0000));            
-                                      
-   if (x_aleatorio_bici_extra >= 600)   {x_aleatorio_bici_extra = x_aleatorio_bici_extra - 150; }   
-   if (x_aleatorio_bici_extra <= 100)   {x_aleatorio_bici_extra = x_aleatorio_bici_extra + 150; } 
-   if (y_aleatorio_bici_extra >= 7850)  {x_aleatorio_bici_extra = x_aleatorio_bici_extra - 200; }   
-   if (y_aleatorio_bici_extra <= 200)   {x_aleatorio_bici_extra = x_aleatorio_bici_extra + 200; }
-      
-         
+          ( color_para_posicionarx5 !=0000));           
    bicis_extra_doble_buffer = create_bitmap(size_bici_extra_x, size_bici_extra_y);  
    blit(bicis_extra, bicis_extra_doble_buffer, size_bici_extra_x*numero_bicis_a_mostrar_pantalla, 0 , 0, 0, size_bici_extra_x, size_bici_extra_y );   
    draw_sprite(fondo1, bicis_extra_doble_buffer, x_aleatorio_bici_extra, y_aleatorio_bici_extra);
@@ -99,9 +94,13 @@ void camiones_a_mostrar (int camiones_a_mostrar_pantalla)
   for (numero_camiones_a_mostrar_pantalla = 0; numero_camiones_a_mostrar_pantalla <= camiones_a_mostrar_pantalla-1; numero_camiones_a_mostrar_pantalla ++)
   {  
     do
-      {
+    {
     x_aleatorio_camion_extra = rand() % size_mapa_x;
     y_aleatorio_camion_extra = rand() % size_mapa_y;
+    if (x_aleatorio_camion_extra >= 600)   {x_aleatorio_camion_extra = x_aleatorio_camion_extra - 150; }   
+    if (x_aleatorio_camion_extra <= 100)   {x_aleatorio_camion_extra = x_aleatorio_camion_extra + 150; }   
+    if (y_aleatorio_camion_extra >= 7850)  {x_aleatorio_camion_extra = x_aleatorio_camion_extra - 200; }   
+    if (y_aleatorio_camion_extra <= 200)   {x_aleatorio_camion_extra = x_aleatorio_camion_extra + 200; }
     color_para_posicionarx1 =  getpixel (fondo1, x_aleatorio_camion_extra , y_aleatorio_camion_extra);
     color_para_posicionarx2 =  getpixel (fondo1, x_aleatorio_camion_extra + size_camion_extra_x, y_aleatorio_camion_extra);                          
     color_para_posicionarx3 =  getpixel (fondo1, x_aleatorio_camion_extra , y_aleatorio_camion_extra + size_camion_extra_y);                          
@@ -113,12 +112,6 @@ void camiones_a_mostrar (int camiones_a_mostrar_pantalla)
           ( color_para_posicionarx3 !=0000) && 
           ( color_para_posicionarx4 !=0000) &&       
           ( color_para_posicionarx5 !=0000));         
-              
-    if (x_aleatorio_camion_extra >= 600)   {x_aleatorio_camion_extra = x_aleatorio_camion_extra - 150; }   
-    if (x_aleatorio_camion_extra <= 100)   {x_aleatorio_camion_extra = x_aleatorio_camion_extra + 150; }   
-    if (y_aleatorio_camion_extra >= 7850)  {x_aleatorio_camion_extra = x_aleatorio_camion_extra - 200; }   
-    if (y_aleatorio_camion_extra <= 200)   {x_aleatorio_camion_extra = x_aleatorio_camion_extra + 200; }
-    
     camiones_extra_doble_buffer = create_bitmap(size_camion_extra_x, size_camion_extra_y);  
     blit(camiones_extra, camiones_extra_doble_buffer, size_camion_extra_x*numero_camiones_a_mostrar_pantalla, 0 , 0, 0, size_camion_extra_x, size_camion_extra_y );   
     draw_sprite(fondo1, camiones_extra_doble_buffer, x_aleatorio_camion_extra, y_aleatorio_camion_extra);
