@@ -1,19 +1,19 @@
 //      by Tijuinem :   tijuinem -at- gmail -dot- com                   
-//      NeuroRAZER versión "ESTANDAR". Clon-versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. 
+//      NeuroRAZER versiï¿½n "ESTANDAR". Clon-versiï¿½n libre del juego Neuroracer, poniï¿½ndolo algo mï¿½s difï¿½cil; uso del ratï¿½n. 
 //      NeuroraZer es un videojuego creado para mejorar el rendimiento cognitivo.
 
 //      Indice de versiones:
-//      versión alfa 1.0  09-12-2013                                    //version modo local
-//      versión alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
-//      versión alfa 1.2  12-12-2013                                    //desde esta versión se libera el código en github. se permite editar, borrar, coger, fork... aunque se agradecerán ampliaciones y mejoras.
-//      versión alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
-//      versión alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
-//      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
-//      versión Beta 1.1  23-12-2013                                    //ahora también con camiones ...
-//      versión Beta 1.2  01-01-2014                                    //incrementar/decrementar vechiculos. quitar/poner tareas.
+//      versiï¿½n alfa 1.0  09-12-2013                                    //version modo local
+//      versiï¿½n alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
+//      versiï¿½n alfa 1.2  12-12-2013                                    //desde esta versiï¿½n se libera el cï¿½digo en github. se permite editar, borrar, coger, fork... aunque se agradecerï¿½n ampliaciones y mejoras.
+//      versiï¿½n alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
+//      versiï¿½n alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
+//      versiï¿½n Beta 1.0  18-12-2013                                    //primera versiï¿½n jugable pï¿½blica. 
+//      versiï¿½n Beta 1.1  23-12-2013                                    //ahora tambiï¿½n con camiones ...
+//      versiï¿½n Beta 1.2  01-01-2014                                    //incrementar/decrementar vechiculos. quitar/poner tareas.
 
-       char version_ultima[50] =  "version Beta 1.2  01-01-2014";       //actualizar aqui la versión a la hora de compilar
-       char programadores[600] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
+       char version_ultima[50] =  "version Beta 1.2  01-01-2014";       //actualizar aqui la versiï¿½n a la hora de compilar
+       char programadores[600] = "tijuinem at gmail dot com";           //aï¿½ade tu nombre o mail, para aparecer actualizado en los crï¿½ditos :)
 
 /*   ______   ___    ___
     /\  _  \ /\_ \  /\_ \
@@ -23,7 +23,7 @@
        \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
         \/_/\/_/\/____/\/____/\/____/\/___ \ \/_/ \/___/
                                        /\____/
-                                       \_/__/     Versión 4 */                                     
+                                       \_/__/     Versiï¿½n 4 */                                     
 //------------------------------------------------------------------------------globales
 #include <allegro.h>
 
@@ -56,7 +56,7 @@
 #include "coches_a_mostrar.h"
 
 //------------------------------------------------------------------------------modo grafico del juego
-#define modo_pantallaX  640                                                     //modo seleccionado para que funcione en cualquier ordenador por obsoleto que esté. como mi 386 XD
+#define modo_pantallaX  640                                                     //modo seleccionado para que funcione en cualquier ordenador por obsoleto que estï¿½. como mi 386 XD
 #define modo_pantallaY 480
 #define numero_de_bits 16 
 
@@ -70,7 +70,7 @@
 //------------------------------------------------------------------------------main-----------  
 void main(void)
 { 
-//------------------------------------------------------------------------------variables generales generales y configuraciones básicas 
+//------------------------------------------------------------------------------variables generales generales y configuraciones bï¿½sicas 
  allegro_init();                                                                //Initialize Allegro.  
  set_color_depth(numero_de_bits);                                               //selecciono X bits
  set_gfx_mode(GFX_SAFE, modo_pantallaX , modo_pantallaY, 0, 0);                 //Set the resolution  with SAFE autodetection.
@@ -97,7 +97,7 @@ void main(void)
                                          
 //------------------------------------------------------------------------------cargo  graficos
  clear_keybuf(); // Borra el buffer del teclado 
- acquire_screen(); // Bloquea screen antes de dibujar en él, screen es el BITMAP por donde nos moveremos 
+ acquire_screen(); // Bloquea screen antes de dibujar en ï¿½l, screen es el BITMAP por donde nos moveremos 
  fondo1 = load_bitmap ("graficos/recta 640 8000 verde.pcx", paleta); 
  fondo2 = load_bitmap ("graficos/recta 640 8000 gris.pcx", paleta); 
  fondo3 = load_bitmap ("graficos/recta 640 8000 estrechamiento.pcx", paleta); 
@@ -173,7 +173,7 @@ do
  if (recorre_y <= size_mapa_y + modo_pantallaY )
   {
       recorre_y = recorre_y + velocidad_scroll;
-      blit(fondo1, screen, 0, size_mapa_y - modo_pantallaX  - recorre_y , 0, 0, modo_pantallaX , modo_pantallaY );       //la primera pantalla empieza en el tamaño del mapa menos 480.
+      blit(fondo1, screen, 0, size_mapa_y - modo_pantallaX  - recorre_y , 0, 0, modo_pantallaX , modo_pantallaY );       //la primera pantalla empieza en el tamaï¿½o del mapa menos 480.
       //textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
       //textprintf(screen, font, 10,20, palette_color[12], "pantalla  %d", fondo_pantalla);
       
@@ -324,7 +324,8 @@ do
   else 
      { 
       //textout(screen, font, "estas fuera del circuito", 160,80, palette_color[15]);
-      play_sample(choque, 255, 0, 1000, FALSE); //int play_sample(const SAMPLE *spl, int vol, int pan, int freq, int loop);
+      if (coordX  >= 320 ) {  play_sample(choque, 255, 255, 1000, FALSE); }
+      if (coordX  <= 320 ) {  play_sample(choque, 255, -255, 1000, FALSE); }
       vida_ppal --;
      }    
      
@@ -419,7 +420,7 @@ rest (retraso_pintar);
 
  SALIDA ();
 
-//------------------------------------------------------------------------------salir de allegro, con alegría.
+//------------------------------------------------------------------------------salir de allegro, con alegrï¿½a.
  poll_keyboard(); // no deberia ser necesario , pero parece que lo es.
  clear_keybuf();
  allegro_exit();
