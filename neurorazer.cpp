@@ -1,19 +1,20 @@
 //      by Tijuinem :   tijuinem -at- gmail -dot- com                   
-//      NeuroRAZER versiï¿½n "ESTANDAR". Clon-versiï¿½n libre del juego Neuroracer, poniï¿½ndolo algo mï¿½s difï¿½cil; uso del ratï¿½n. 
+//      NeuroRAZER versión "ESTANDAR". Clon-versión libre del juego Neuroracer, poniéndolo algo más difícil; uso del ratón. 
 //      NeuroraZer es un videojuego creado para mejorar el rendimiento cognitivo.
 
 //      Indice de versiones:
-//      versiï¿½n alfa 1.0  09-12-2013                                    //version modo local
-//      versiï¿½n alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
-//      versiï¿½n alfa 1.2  12-12-2013                                    //desde esta versiï¿½n se libera el cï¿½digo en github. se permite editar, borrar, coger, fork... aunque se agradecerï¿½n ampliaciones y mejoras.
-//      versiï¿½n alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
-//      versiï¿½n alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
-//      versiï¿½n Beta 1.0  18-12-2013                                    //primera versiï¿½n jugable pï¿½blica. 
-//      versiï¿½n Beta 1.1  23-12-2013                                    //ahora tambiï¿½n con camiones ...
-//      versiï¿½n Beta 1.2  01-01-2014                                    //incrementar/decrementar vechiculos. quitar/poner tareas.
+//      versión alfa 1.0  09-12-2013                                    //version modo local
+//      versión alfa 1.1  11-12-2013                                    //carga pantallas ok.                                              
+//      versión alfa 1.2  12-12-2013                                    //desde esta versión se libera el código en github. se permite editar, borrar, coger, fork... aunque se agradecerán ampliaciones y mejoras.
+//      versión alfa 1.3  16-12-2013                                    //incrementos de velocidades. puntos.
+//      versión alfa 1.4  17-12-2013                                    //aparicion o no de bicis, coches, y segunda tarea.
+//      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
+//      versión Beta 1.1  23-12-2013                                    //ahora también con camiones ...
+//      versión Beta 1.2  01-01-2014                                    //incrementar/decrementar vechiculos. quitar/poner tareas.
+//      versión Beta 1.3  13-01-2014                                    //incrementar/decrementar velocidades. archivo help.
 
-       char version_ultima[50] =  "version Beta 1.2  01-01-2014";       //actualizar aqui la versiï¿½n a la hora de compilar
-       char programadores[600] = "tijuinem at gmail dot com";           //aï¿½ade tu nombre o mail, para aparecer actualizado en los crï¿½ditos :)
+       char version_ultima[50] =  "version Beta 1.3  01-01-2014";       //actualizar aqui la versión a la hora de compilar
+       char programadores[600] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
     /\  _  \ /\_ \  /\_ \
@@ -23,7 +24,7 @@
        \ \_\ \_\/\____\/\____\ \____\ \____ \ \_\\ \____/
         \/_/\/_/\/____/\/____/\/____/\/___ \ \/_/ \/___/
                                        /\____/
-                                       \_/__/     Versiï¿½n 4 */                                     
+                                       \_/__/     Versión 4 */                                     
 //------------------------------------------------------------------------------globales
 #include <allegro.h>
 
@@ -56,7 +57,7 @@
 #include "coches_a_mostrar.h"
 
 //------------------------------------------------------------------------------modo grafico del juego
-#define modo_pantallaX  640                                                     //modo seleccionado para que funcione en cualquier ordenador por obsoleto que estï¿½. como mi 386 XD
+#define modo_pantallaX  640                                                     //modo seleccionado para que funcione en cualquier ordenador por obsoleto que esté. como mi 386 XD
 #define modo_pantallaY 480
 #define numero_de_bits 16 
 
@@ -70,7 +71,7 @@
 //------------------------------------------------------------------------------main-----------  
 void main(void)
 { 
-//------------------------------------------------------------------------------variables generales generales y configuraciones bï¿½sicas 
+//------------------------------------------------------------------------------variables generales generales y configuraciones básicas 
  allegro_init();                                                                //Initialize Allegro.  
  set_color_depth(numero_de_bits);                                               //selecciono X bits
  set_gfx_mode(GFX_SAFE, modo_pantallaX , modo_pantallaY, 0, 0);                 //Set the resolution  with SAFE autodetection.
@@ -97,7 +98,7 @@ void main(void)
                                          
 //------------------------------------------------------------------------------cargo  graficos
  clear_keybuf(); // Borra el buffer del teclado 
- acquire_screen(); // Bloquea screen antes de dibujar en ï¿½l, screen es el BITMAP por donde nos moveremos 
+ acquire_screen(); // Bloquea screen antes de dibujar en él, screen es el BITMAP por donde nos moveremos 
  fondo1 = load_bitmap ("graficos/recta 640 8000 verde.pcx", paleta); 
  fondo2 = load_bitmap ("graficos/recta 640 8000 gris.pcx", paleta); 
  fondo3 = load_bitmap ("graficos/recta 640 8000 estrechamiento.pcx", paleta); 
@@ -115,7 +116,7 @@ void main(void)
 
 //------------------------------------------------------------------------------coche ppal. mejorar con struct
  int coordX = 300 , coordY= 300 ;                                               //posicion de salida
- int incremento_corrdenadas = 1;  
+ int incremento_coordenadas = 1;  
  int fondoX = 0 , fondoY= 0 ;                                                   //colores de fondo por defecto NEGRO
  int limite_pantalla_X = modo_pantallaX - size_coche_x, limite_pantalla_Y  = modo_pantallaY - size_coche_y; //limites de pantalla para el objeto.
  BITMAP *cochePPAL, *doble_buffer_cochePPAL ;                                   //doble buffer para el coche ppal. ???
@@ -173,36 +174,38 @@ do
  if (recorre_y <= size_mapa_y + modo_pantallaY )
   {
       recorre_y = recorre_y + velocidad_scroll;
-      blit(fondo1, screen, 0, size_mapa_y - modo_pantallaX  - recorre_y , 0, 0, modo_pantallaX , modo_pantallaY );       //la primera pantalla empieza en el tamaï¿½o del mapa menos 480.
+      blit(fondo1, screen, 0, size_mapa_y - modo_pantallaX  - recorre_y , 0, 0, modo_pantallaX , modo_pantallaY );       //la primera pantalla empieza en el tamaño del mapa menos 480.
       //textprintf(screen, font, 10,10, palette_color[12], "recorre_y  %d",recorre_y );
       //textprintf(screen, font, 10,20, palette_color[12], "pantalla  %d", fondo_pantalla);
-      
-      textprintf(screen, font, 10,30, palette_color[12], "VIDA      %d", vida_ppal);
-      textprintf(screen, font, 10,40, palette_color[12], "PUNTOS    %d", puntos_ppal);
-      textprintf(screen, font, 10,50, palette_color[12], "BALAS     %d", balas); 
-      textprintf(screen, font, 10,60, palette_color[14], "==================", velocidad_scroll);
-      textprintf(screen, font, 10,70, palette_color[14], "                %d", velocidad_scroll);
-      textprintf(screen, font, 10,70, palette_color[12], "VELOCIDAD F1/F2:");
-      textprintf(screen, font, 10,130, palette_color[12], "TURBO/FRENO F11/F12");
+      //textprintf(screen, font, 10,200, palette_color[12], "incremento_coordenadas  %d", incremento_coordenadas);
+      //textprintf(screen, font, 10,220, palette_color[12], "dificultad_aleatorio  %d", dificultad_aleatorio);
+            
+      textprintf(screen, font, 10,5,  palette_color[12], "VIDA      %d", vida_ppal);
+      textprintf(screen, font, 10,15, palette_color[12], "PUNTOS    %d", puntos_ppal);
+      textprintf(screen, font, 10,25, palette_color[12], "BALAS     %d", balas); 
+      textprintf(screen, font, 10,35, palette_color[14], "==================", velocidad_scroll);
+      textprintf(screen, font, 10,45, palette_color[14], "                %d", velocidad_scroll);
+      textprintf(screen, font, 10,45, palette_color[12], "VELOCIDAD F1/F2:");
+      textprintf(screen, font, 10,105,palette_color[12], "TURBO/FRENO F11/F12");
      
       if (mostramos_bicis == true) 
-         { textout(screen, font, esto_es_si_bicis, 10, 80, palette_color[12]);
-           textprintf(screen, font, 75,80, palette_color[14], "=%d ", numero_bicis_a_incrementar *6); } 
-         else {textout(screen, font, esto_es_no_bicis, 10, 80, palette_color[9]);}
+         { textout(screen, font, esto_es_si_bicis, 10, 55, palette_color[12]);
+           textprintf(screen, font, 75,55, palette_color[14], "=%d ", numero_bicis_a_incrementar *6); } 
+         else {textout(screen, font, esto_es_no_bicis, 10, 55, palette_color[9]);}
       if (mostramos_coches == true) 
-         { textout(screen, font, esto_es_si_coches, 10, 90, palette_color[12]);
-           textprintf(screen, font, 75,90, palette_color[14], "=%d ", numero_coches_a_incrementar *6);   } 
-         else {textout(screen, font, esto_es_no_coches, 10, 90, palette_color[9]);}
+         { textout(screen, font, esto_es_si_coches, 10, 65, palette_color[12]);
+           textprintf(screen, font, 75, 65, palette_color[14], "=%d ", numero_coches_a_incrementar *6);   } 
+         else {textout(screen, font, esto_es_no_coches, 10, 65, palette_color[9]);}
       if (mostramos_camiones == true) 
-         { textout(screen, font, esto_es_si_camiones, 10, 100, palette_color[12]);  
-           textprintf(screen, font, 75,100, palette_color[14], "=%d ", numero_camiones_a_incrementar *7); } 
-         else {textout(screen, font, esto_es_no_camiones, 10, 100, palette_color[9]);}
+         { textout(screen, font, esto_es_si_camiones, 10, 75, palette_color[12]);  
+           textprintf(screen, font, 75, 75, palette_color[14], "=%d ", numero_camiones_a_incrementar *7); } 
+         else {textout(screen, font, esto_es_no_camiones, 10, 75, palette_color[9]);}
       if (activar_punto_rojo == true) 
-         { textout(screen, font, esto_es_si_p_rojo, 10, 110, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_rojo, 10, 110, palette_color[9]);}
+         { textout(screen, font, esto_es_si_p_rojo, 10, 85, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_rojo, 10, 85, palette_color[9]);}
       if (activar_punto_amarillo == true) 
-         { textout(screen, font, esto_es_si_p_amarillo, 10, 120, palette_color[12]);   } 
-         else {textout(screen, font, esto_es_no_p_amarillo, 10, 120, palette_color[9]);} 
+         { textout(screen, font, esto_es_si_p_amarillo, 10, 95, palette_color[12]);   } 
+         else {textout(screen, font, esto_es_no_p_amarillo, 10, 95, palette_color[9]);} 
       
       blit(cochePPAL , doble_buffer_cochePPAL, 0, 0 , 0, 0, size_coche_x, size_coche_y );           //con doble buffer. ventaja que cojo cachos.
       draw_sprite(screen, doble_buffer_cochePPAL, coordX, coordY); 
@@ -252,13 +255,13 @@ do
            clear_keybuf();                 
            }
         if (key[KEY_LEFT]) 
-         if (coordX >= 0 + size_coche_x/4)   { coordX = coordX - incremento_corrdenadas;  }
+         if (coordX >= 0 + size_coche_x/4)   { coordX = coordX - incremento_coordenadas;  }
         if (key[KEY_RIGHT]) 
-         if (coordX <= limite_pantalla_X  - size_coche_x/4) { coordX = coordX + incremento_corrdenadas; }   
+         if (coordX <= limite_pantalla_X  - size_coche_x/4) { coordX = coordX + incremento_coordenadas; }   
         if (key[KEY_UP]) 
-         if (coordY >= 0 + size_coche_y/4 )  { coordY = coordY - incremento_corrdenadas; }              
+         if (coordY >= 0 + size_coche_y/4 )  { coordY = coordY - incremento_coordenadas; }              
         if (key[KEY_DOWN]) 
-         if (coordY <= limite_pantalla_Y - size_coche_y/4 )  { coordY = coordY + incremento_corrdenadas; }  
+         if (coordY <= limite_pantalla_Y - size_coche_y/4 )  { coordY = coordY + incremento_coordenadas; }  
 
 //--------------------------------------------------------------------------aleatorio mostrar avisos--------------
   aleatorio =  rand() % dificultad_aleatorio;
@@ -384,15 +387,27 @@ do
         case KEY_F12:
             retraso_pintar ++;
             break;
-        case KEY_O:
-            dificultad_aleatorio = 1000;                                     
+        case KEY_MINUS_PAD:
+            if (incremento_coordenadas <= 1 )     {incremento_coordenadas = 1;} 
+            else if (incremento_coordenadas != 0) {incremento_coordenadas --;}                                    
+            break;  
+        case KEY_PLUS_PAD:
+            incremento_coordenadas ++;   
+            if (incremento_coordenadas >= 20) {incremento_coordenadas = 20;}                                       
+            break;
+        case KEY_A:
+            dificultad_aleatorio = 1000;                                                          
             break;
         case KEY_P:
+            if (velocidad_scroll == 0 ) {velocidad_scroll = 1;} 
+            else if (velocidad_scroll != 0) {velocidad_scroll = 0;}                                                         
+            break;
+        case KEY_U:
             puntos_ppal= puntos_ppal + 1000;                                    //haciendo trampas 
             break;
     }
   }    
-  //------------------------------------------trampas y puntos
+  //----------------------------------------------------------------------------trampas y puntos
   
   if (pantallas_recorridas >= 99 ) 
           {   
@@ -417,10 +432,8 @@ do
 rest (retraso_pintar);     
  } //--------------------------------------------------------------------------fin del ciclo for de recorrer fondos y juego
 } while (fin_juego==0);//------------------------------------------------------fin juego
-
  SALIDA ();
-
-//------------------------------------------------------------------------------salir de allegro, con alegrï¿½a.
+//------------------------------------------------------------------------------salir de allegro, con alegría.
  poll_keyboard(); // no deberia ser necesario , pero parece que lo es.
  clear_keybuf();
  allegro_exit();
@@ -440,8 +453,7 @@ rest (retraso_pintar);
  destroy_bitmap(portada_y_salida);
  destroy_bitmap(coches_extra);
  destroy_bitmap(bicis_extra);
- destroy_bitmap(camiones_extra);
- 
+ destroy_bitmap(camiones_extra); 
 //------------------------------------------------------------------------------destruyo todas las memorias audio
  destroy_sample(choque);
  destroy_sample(motor1);
