@@ -11,9 +11,10 @@
 //      versión Beta 1.0  18-12-2013                                    //primera versión jugable pública. 
 //      versión Beta 1.1  23-12-2013                                    //ahora también con camiones ...
 //      versión Beta 1.2  01-01-2014                                    //incrementar/decrementar vechiculos. quitar/poner tareas.
-//      versión Beta 1.3  13-01-2014                                    //incrementar/decrementar velocidades. archivo help.
+//      versión Beta 1.3  13-01-2014                                    //incrementar/decrementar velocidades. archivo help. aleatorios
+//      versión Beta 1.4  13-01-2014                                    //subo ya una version EXE a sourceforge
 
-       char version_ultima[50] =  "version Beta 1.3  01-01-2014";       //actualizar aqui la versión a la hora de compilar
+       char version_ultima[50] = "version Beta 1.4  14-01-2014";        //actualizar aqui la versión a la hora de compilar
        char programadores[600] = "tijuinem at gmail dot com";           //añade tu nombre o mail, para aparecer actualizado en los créditos :)
 
 /*   ______   ___    ___
