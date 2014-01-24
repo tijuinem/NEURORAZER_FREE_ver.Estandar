@@ -19,13 +19,16 @@ void SALIDA (void)
      textprintf(screen, font, 222,420, palette_color[10], "     PULSA  -ESC- PARA SALIR      ");   
      textprintf(screen, font, 222,440, palette_color[10], "PULSA  -ENTER- PARA JUGAR DE NUEVO");     
      
+  /*                         //ERROR --> no vuelve a reiniciar partida
      if  (key[KEY_ENTER]) 
           {  
-          fin_juego = 0;      
-          clear_keybuf(); 
-          destroy_bitmap(portada_y_salida);           
+          puntos_ppal =0;
+          clear_bitmap(screen);
+          destroy_bitmap(portada_y_salida);
+          clear_keybuf();
           PRESENTACION ();                      
-          }           
+          } 
+      */                    
      
      } while (!key[KEY_ESC]);
      destroy_bitmap(portada_y_salida);
